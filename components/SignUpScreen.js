@@ -9,10 +9,12 @@ import {
     SafeAreaView,
 } from "react-native";
 import { useSignIn } from "@clerk/clerk-expo";
+import { useNavigation } from '@react-navigation/native';
 
 export default function SignInScreen() {
 
     const { signIn, setActive, isLoaded } = useSignIn();
+    const navigation = useNavigation();
 
     const [emailAddress, setEmailAddress] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -202,7 +204,7 @@ export default function SignInScreen() {
                             justifyContent: "center",
                             alignItems: "center",
                         }}
-                        onPress={onSignInPress}
+                        onPress={() => navigation.navigate('SignIn')}
                     >
                         <Text
                             style={{
