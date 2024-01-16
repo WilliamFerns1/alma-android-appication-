@@ -18,6 +18,8 @@ export default function SignInScreen() {
 
     const [emailAddress, setEmailAddress] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [pendingVerification, setPendingVerification] = React.useState(false);
+    const [code, setCode] = React.useState("");
 
     const onSignInPress = async () => {
         if (!isLoaded) {
@@ -29,11 +31,16 @@ export default function SignInScreen() {
                 identifier: emailAddress,
                 password,
             });
+            // send the email.
+            await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+
+            // change the UI to our pending section.
+            setPendingVerification(true);
             // This is an important step,
             // This indicates the user is signed in
             await setActive({ session: completeSignIn.createdSessionId });
         } catch (err) {
-            console.log(err);
+            console.error(JSON.stringify(err, null, 2));
         }
     };
     return (
@@ -46,30 +53,32 @@ export default function SignInScreen() {
                     source={require('../assets/Logo.png')} // Replace with the actual path to your image
                 />
             </View>
+            {
 
+            }
             <View
                 style={{
-                    width: "100%",
+                    width: "99%",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    gap: 10
+                    gap: 9
                 }}
             >
                 <View
                     style={{
-                        width: "100%",
+                        width: "99%",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "flex-start",
-                        gap: 10,
+                        gap: 9,
                     }}
                 >
                     <Text
                         style={{
                             color: "#fff",
-                            fontSize: 20,
+                            fontSize: 19,
                             fontWeight: "bold",
                         }}
                     >
@@ -77,14 +86,14 @@ export default function SignInScreen() {
                     </Text>
                     <TextInput
                         style={{
-                            width: "100%",
-                            height: 40,
+                            width: "99%",
+                            height: 39,
                             backgroundColor: 'white', // Set background color to white
-                            borderRadius: 5, // Add border radius for rounded corners
-                            borderWidth: 1, // Add border width for the stroke
+                            borderRadius: 4, // Add border radius for rounded corners
+                            borderWidth: 0, // Add border width for the stroke
                             borderColor: '#ccc', // Set border color
-                            paddingHorizontal: 10, // Add horizontal padding
-                            fontSize: 16, // Set font size
+                            paddingHorizontal: 9, // Add horizontal padding
+                            fontSize: 15, // Set font size
                             color: 'black', // Set text color
                         }}
                         autoCapitalize="none"
@@ -95,17 +104,17 @@ export default function SignInScreen() {
                 </View>
                 <View
                     style={{
-                        width: "100%",
+                        width: "99%",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "flex-start",
-                        gap: 10,
+                        gap: 9,
                     }}
                 >
                     <Text
                         style={{
                             color: "#fff",
-                            fontSize: 20,
+                            fontSize: 19,
                             fontWeight: "bold",
                         }}
                     >
@@ -113,14 +122,14 @@ export default function SignInScreen() {
                     </Text>
                     <TextInput
                         style={{
-                            width: "100%",
-                            height: 40,
+                            width: "99%",
+                            height: 39,
                             backgroundColor: 'white', // Set background color to white
-                            borderRadius: 5, // Add border radius for rounded corners
-                            borderWidth: 1, // Add border width for the stroke
+                            borderRadius: 4, // Add border radius for rounded corners
+                            borderWidth: 0, // Add border width for the stroke
                             borderColor: '#ccc', // Set border color
-                            paddingHorizontal: 10, // Add horizontal padding
-                            fontSize: 16, // Set font size
+                            paddingHorizontal: 9, // Add horizontal padding
+                            fontSize: 15, // Set font size
                             color: 'black', // Set text color
                         }}
                         value={password}
@@ -129,44 +138,37 @@ export default function SignInScreen() {
                         onChangeText={(password) => setPassword(password)}
                     />
                 </View>
-
-                <View>
-                    <Text>
-                    </Text>
-                    <TextInput
-                    />
-                </View>
             </View>
             <View
                 style={{
-                    width: "100%",
+                    width: "99%",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
-                    gap: 83,
+                    paddingVertical: 10,
                 }}
             >
 
                 <TouchableOpacity
                     style={{
                         display: "flex",
-                        paddingHorizontal: 15,
-                        paddingVertical: 22,
+                        paddingHorizontal: 14,
+                        paddingVertical: 21,
                         flexDirection: "column",
-                        width: "100%",
+                        width: "99%",
                         justifyContent: "center",
                         alignItems: "center",
-                        borderRadius: 10,
-                        backgroundColor: "#9949FF",
-                        gap: 16,
+                        borderRadius: 9,
+                        backgroundColor: "#9948FF",
+                        gap: 15,
                     }}
                     onPress={onSignInPress}
                 >
                     <Text
                         style={{
                             color: "#fff",
-                            fontSize: 24,
+                            fontSize: 23,
                             fontWeight: "bold"
                         }}
                     >
@@ -180,6 +182,7 @@ export default function SignInScreen() {
                         justifyContent: "center",
                         gap: 10,
                         width: "100%",
+                        marginTop: 50,
                         flexDirection: "row",
                     }}
                 >
