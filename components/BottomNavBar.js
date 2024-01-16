@@ -8,13 +8,12 @@ import {
 }
 from 'react-native'
 
-import { useSession, useUser } from "@clerk/clerk-expo";
+import { useSession, useUser, useClerk } from "@clerk/clerk-expo";
 
 import { useNavigation } from '@react-navigation/native';
 
 export default function BottomNavBar() {
-    const { session, signOut } = useSession();
-
+    const { signOut } = useClerk();
     const navigation = useNavigation();
     return (
         <View
@@ -84,12 +83,6 @@ export default function BottomNavBar() {
                     try {
                         // Clear local storage
                         await AsyncStorage.clear();
-
-                        // Reset the navigation stack and navigate to the 'Starter' route
-                        navigation.reset({
-                            index: 0,
-                            routes: [{ name: 'Starter' }],
-                        });
                         signOut();
                         navigation.navigate('SignIn')
                     } catch (error) {
