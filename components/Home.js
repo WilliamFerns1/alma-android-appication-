@@ -55,21 +55,66 @@ export default function Home() {
     useEffect(() => {
         console.log("User Data: ");
         console.log(userData ? userData : "No user data");
-        console.log(userData.currentMonthCalendar ? userData.currentMonthCalendar : "No current month calendar")
+        console.log(userData ? userData.currentMonthCalendar : "No current month calendar")
     }, [userData])
 
     function EmotionCalender() {
         return (
-            <View>
-                {
-                    userData.currentMonthCalendar && userData['currentMonthCalendar']?.map((day, index) => {
-                        return (
-                            <View>
-                                <Text>{day['day']}</Text>
-                            </View>
-                        )
-                    })
-                }
+            <View
+                style={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 10
+                }}
+            >
+                {userData &&
+                    userData.currentMonthCalendar.map((weekArray, index) => (
+                        <View
+                            key={index}
+                            style={{
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: index === userData.currentMonthCalendar.length - 1 ? "flex-start" : "space-between",
+                                alignItems: "center",
+                                alignSelf: "stretch",
+                            }}
+                        >
+                            {
+                                weekArray.week.map((day, dayIndex) => {
+                                    return (
+                                        <View
+                                            key={dayIndex}
+                                            style={{
+                                                display: "flex",
+                                                paddingHorizontal: 10,
+                                                paddingVertical: 10,
+                                                width: "13%",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                                backgroundColor: day.value === 0 ? "#464646" : (day.value === 1 ? "green" : (day.value === 2 ? "yellow" : "red")),
+                                                marginRight: index === userData.currentMonthCalendar.length - 1 ? "1.28%" : 0
+                                            }}
+                                        >
+                                            <Text
+                                                style={{
+                                                    textAlign: "center",
+                                                    color: "#fff",
+                                                }}
+                                            >
+                                                {day.day}
+                                            </Text>
+                                        </View>
+                                    )
+                                })
+                            }
+                        </View>
+                    ))}
             </View>
         )
     }

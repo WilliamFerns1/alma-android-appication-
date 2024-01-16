@@ -49,25 +49,37 @@ export default function Main() {
       }
     }
 
-    // Usage example:
-    const collectionName = "users";
-    const documentID = user?.id;
-    const currentMonthYear = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
-    console.log(currentMonthYear);
-    //get the total days of the current month
-    const totalDays = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
-    console.log("Total Days: ", totalDays);
+        // Usage example:
+        const collectionName = "users";
+        const documentID = user?.id;
+        const currentMonthYear = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+        console.log(currentMonthYear);
+        //get the total days of the current month
+        const totalDays = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+        console.log("Total Days: ", totalDays);
 
-    let currentMonthCalendarValues = [];
-    for (let i = 0; i < totalDays; i++) {
-        currentMonthCalendarValues.push({
-            day: i + 1,
-            value: 0,
-        })
-    }
+        let currentMonthCalendarValues = [];
+        for (let i = 0; i < totalDays; i++) {
+            currentMonthCalendarValues.push({
+                day: i + 1,
+                value: 0,
+            })
+        }
+        // Grouping into weeks
+        //
+        let  weeksArray = [];
+        const daysInWeek = 7;
+
+        for (let i = 0; i < currentMonthCalendarValues.length; i += daysInWeek) {
+            const week = currentMonthCalendarValues.slice(i, i + daysInWeek);
+            weeksArray.push({ week });
+        }
+
+        console.log(weeksArray);
+
     const data = {
         userId: user?.id || "",
-        currentMonthCalendar: currentMonthCalendarValues,
+        currentMonthCalendar: weeksArray,
         currentMonthYear: currentMonthYear,
     };
 
