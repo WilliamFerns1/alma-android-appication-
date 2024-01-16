@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, TextInput, Image, TouchableOpacity, View } from "react-native";
 import { useSignIn } from "@clerk/clerk-expo";
 
 export default function SignInScreen() {
@@ -26,28 +26,214 @@ export default function SignInScreen() {
         }
     };
     return (
-        <View>
-            <View>
-                <TextInput
-                    autoCapitalize="none"
-                    value={emailAddress}
-                    placeholder="Email..."
-                    onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+        <View
+            style={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "#030637",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                paddingVertical: 10,
+                paddingHorizontal: 20,
+                gap: 10,
+            }}
+        >
+
+            <View
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                <Image
+                    source={require('../assets/Logo.png')} // Replace with the actual path to your image
                 />
             </View>
 
-            <View>
-                <TextInput
-                    value={password}
-                    placeholder="Password..."
-                    secureTextEntry={true}
-                    onChangeText={(password) => setPassword(password)}
-                />
-            </View>
+            <View
+                style={{
+                        width: "100%",
+                }}
+            >
+                <View
+                    style={{
+                        width: "99%",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: 9
+                    }}
+                >
+                    <View
+                        style={{
+                            width: "99%",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            gap: 9,
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: "#fff",
+                                fontSize: 19,
+                                fontWeight: "bold",
+                            }}
+                        >
+                            Email:
+                        </Text>
+                        <TextInput
+                            style={{
+                                width: "99%",
+                                height: 39,
+                                backgroundColor: 'white', // Set background color to white
+                                borderRadius: 4, // Add border radius for rounded corners
+                                borderWidth: 0, // Add border width for the stroke
+                                borderColor: '#ccc', // Set border color
+                                paddingHorizontal: 9, // Add horizontal padding
+                                fontSize: 15, // Set font size
+                                color: 'black', // Set text color
+                            }}
+                            autoCapitalize="none"
+                            value={emailAddress}
+                            placeholder="example@gmail.com"
+                            onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+                        />
 
-            <TouchableOpacity onPress={onSignInPress}>
-                <Text>Sign in</Text>
-            </TouchableOpacity>
+                    </View>
+                    <View
+                        style={{
+                            width: "99%",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            gap: 9,
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: "#fff",
+                                fontSize: 19,
+                                fontWeight: "bold",
+                            }}
+                        >
+                            Password
+                        </Text>
+                        <TextInput
+                            style={{
+                                width: "99%",
+                                height: 39,
+                                backgroundColor: 'white', // Set background color to white
+                                borderRadius: 4, // Add border radius for rounded corners
+                                borderWidth: 0, // Add border width for the stroke
+                                borderColor: '#ccc', // Set border color
+                                paddingHorizontal: 9, // Add horizontal padding
+                                fontSize: 15, // Set font size
+                                color: 'black', // Set text color
+                            }}
+                            value={password}
+                            placeholder="Password..."
+                            secureTextEntry={true}
+                            onChangeText={(password) => setPassword(password)}
+                        />
+
+                        <Text
+                            style={{
+                                color: "white",
+                            }}
+                            >
+                        </Text>
+                    </View>
+                </View>
+                <View
+                    style={{
+                        width: "99%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        paddingVertical: 10,
+                        gap: 25,
+                        marginTop: 20,
+                    }}
+                >
+
+                    <TouchableOpacity
+                        style={{
+                            display: "flex",
+                            paddingHorizontal: 14,
+                            paddingVertical: 21,
+                            flexDirection: "column",
+                            width: "99%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            borderRadius: 9,
+                            backgroundColor: "#9948FF",
+                            gap: 15,
+                        }}
+                        onPress={onSignInPress}
+                    >
+                        <Text
+                            style={{
+                                color: "#fff",
+                                fontSize: 23,
+                                fontWeight: "bold"
+                            }}
+                        >
+                            Log in
+                        </Text>
+                    </TouchableOpacity>
+                    <View
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 10,
+                            width: "100%",
+                            flexDirection: "row",
+                        }}
+                    >
+                        <Text
+                            style={{
+                                width: "45%",
+                                color: "#fff",
+                            }}
+                        >
+                            Don't have an account?
+                        </Text>
+                        <TouchableOpacity
+                            style={{
+                                width: "45%",
+                                display: "flex",
+                                height: 45,
+                                paddingVertical: 5,
+                                borderRadius: 10,
+                                borderWidth: 1,
+                                borderColor: '#9949FF',
+                                paddingHorizontal: 15,
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                            onPress={() => navigation.navigate('SignUp')}
+                        >
+                            <Text
+                                style={{
+                                    color: "#fff",
+                                    fontSize: 15,
+                                    fontWeight: "bold"
+                                }}
+                            >
+                                Sign up
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
         </View>
     );
 }

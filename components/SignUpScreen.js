@@ -3,9 +3,9 @@ import {
     StyleSheet,
     Text,
     TextInput,
+    Image,
     TouchableOpacity,
     View,
-    Image,
     SafeAreaView,
 } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
@@ -72,7 +72,6 @@ export default function SignUpScreen() {
         >
             <View style={styles.logo}>
                 <Image
-                    style={styles.image}
                     source={require('../assets/Logo.png')} // Replace with the actual path to your image
                 />
             </View>
@@ -164,6 +163,7 @@ export default function SignUpScreen() {
                                 secureTextEntry={true}
                                 onChangeText={(password) => setPassword(password)}
                             />
+
                             <Text
                                 style={{
                                     color: "white",
@@ -207,7 +207,7 @@ export default function SignUpScreen() {
                                     fontWeight: "bold"
                                 }}
                             >
-                                Sign in
+                                Sign up
                             </Text>
                         </TouchableOpacity>
                         <View
