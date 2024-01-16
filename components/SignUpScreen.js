@@ -20,7 +20,7 @@ export default function SignUpScreen() {
     const [password, setPassword] = React.useState("");
     const [pendingVerification, setPendingVerification] = React.useState(false);
     const [code, setCode] = React.useState("");
-
+    const [error, setError] = React.useState("");
     // start the sign up process.
     const onSignUpPress = async () => {
         if (!isLoaded) {
@@ -42,6 +42,7 @@ export default function SignUpScreen() {
             setPendingVerification(true);
         } catch (err) {
             console.error(JSON.stringify(err, null, 2));
+            setError(err['errors'][0]['message']);
         }
     };
 
@@ -163,6 +164,12 @@ export default function SignUpScreen() {
                                 secureTextEntry={true}
                                 onChangeText={(password) => setPassword(password)}
                             />
+                            <Text
+                                style={{
+                                    color: "white",
+                                }}
+                                >{error}
+                            </Text>
                         </View>
                     </View>
                     <View
