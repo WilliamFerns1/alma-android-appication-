@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import {
     StyleSheet,
@@ -17,50 +18,44 @@ import { initializeApp } from "firebase/app";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
 export default function Home() {
     const { loading, session } = useSession();
     const {user} = useUser()
     const [ userData, setUserData ] = useState(null);
-    const [reload, setReload] = useState(false)
-
-    function getReloadPage() {
-        setReload(!reload)
-    }
-
-    // Usage example:
-    const collectionName = "users";
-    const documentID = user?.id;
-
-    async function getUserData(db, collectionName, documentID) {
-        try {
-        // Check if the document ID is null or undefined
-        if (!documentID) {
-          console.log("Document ID is null or undefined.");
-          return;
-        }
-
-        const collectionRef = collection(db, collectionName);
-        const documentRef = doc(collectionRef, documentID);
-
-        // Check if the document exists
-        const documentSnapshot = await getDoc(documentRef);
-
-        if (documentSnapshot.exists()) {
-          console.log(`Document with ID ${documentID} already exists.`);
-        setUserData(documentSnapshot.data());
-        }
-      } catch (error) {
-        console.error("Error getting document:", error);
-      }
-    }
-
     useEffect(() => {
+        console.log("In useEffect again!!")
+        console.log("In useEffect again!!")
+        console.log("In useEffect again!!")
+        console.log("In useEffect again!!")
+        async function getUserData(db, collectionName, documentID) {
+            try {
+            // Check if the document ID is null or undefined
+            if (!documentID) {
+              console.log("Document ID is null or undefined.");
+              return;
+            }
+
+            const collectionRef = collection(db, collectionName);
+            const documentRef = doc(collectionRef, documentID);
+
+            // Check if the document exists
+            const documentSnapshot = await getDoc(documentRef);
+
+            if (documentSnapshot.exists()) {
+              console.log(`Document with ID ${documentID} already exists.`);
+            setUserData(documentSnapshot.data());
+            }
+          } catch (error) {
+            console.error("Error getting document:", error);
+          }
+        }
+
+        // Usage example:
+        const collectionName = "users";
+        const documentID = user?.id;
         getUserData(db, collectionName, documentID);
     }, [])
-
-    useEffect(() => {
-        getUserData(db, collectionName, documentID);
-    }, [reload])
 
     useEffect(() => {
         console.log("User Data: ");
@@ -335,7 +330,7 @@ export default function Home() {
                     {userData && userData.currentMonthYear}
                 </Text>
             </View>
-            <BottomNavBar setReloadPage={getReloadPage}/>
+            <BottomNavBar />
         </View>
     )
 }
