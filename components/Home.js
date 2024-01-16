@@ -11,6 +11,8 @@ import {
 
 import { useSession, useUser } from "@clerk/clerk-expo";
 
+import BottomNavBar from "./BottomNavBar"
+
 import { getFirestore, collection, doc, getDoc, setDoc } from "firebase/firestore";
 import firebaseConfig from "../firebaseConfig";
 import { initializeApp } from "firebase/app";
@@ -128,7 +130,6 @@ export default function Home() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "center",
                 gap: 20,
             }}
         >
@@ -325,6 +326,7 @@ export default function Home() {
                     {userData && userData.currentMonthYear}
                 </Text>
             </View>
+            <BottomNavBar />
         </View>
     )
 }
