@@ -52,7 +52,8 @@ export default function Main() {
     // Usage example:
     const collectionName = "users";
     const documentID = user?.id;
-    const currentMonth = new Date().getMonth();
+    const currentMonthYear = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+    console.log(currentMonthYear);
     //get the total days of the current month
     const totalDays = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
     console.log("Total Days: ", totalDays);
@@ -67,7 +68,7 @@ export default function Main() {
     const data = {
         userId: user?.id || "",
         currentMonthCalendar: currentMonthCalendarValues,
-        currentMonth: currentMonth,
+        currentMonthYear: currentMonthYear,
     };
 
     checkAndCreateDocument(db, collectionName, documentID, data);
