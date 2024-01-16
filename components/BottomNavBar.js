@@ -20,6 +20,7 @@ const db = getFirestore(app);
 import { useNavigation } from '@react-navigation/native';
 
 export default function BottomNavBar() {
+    const [userData, setUserData] = useState(null)
     const { signOut } = useClerk();
     const navigation = useNavigation();
     const {user} = useUser()
@@ -54,6 +55,12 @@ export default function BottomNavBar() {
         const documentID = user?.id;
         getUserData(db, collectionName, documentID);
     }, [])
+
+    useEffect(() => {
+        console.log("User Data: ");
+        console.log(userData ? userData : "No user data");
+        console.log(userData ? userData.currentMonthCalendar : "No current month calendar")
+    }, [userData])
 
     return (
         <View
