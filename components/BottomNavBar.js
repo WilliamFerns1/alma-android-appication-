@@ -7,7 +7,11 @@ import {
 }
 from 'react-native'
 
+import { useNavigation } from '@react-navigation/native';
+
 export default function BottomNavBar() {
+
+    const navigation = useNavigation();
     return (
         <View
             style={{
@@ -73,7 +77,7 @@ export default function BottomNavBar() {
                     borderWidth: 2, // Border width
                     borderColor: 'white', // Border color
                 }}
-                onPress={() => navigation.navigate('SignUp')}
+                onPress={() => navigation.navigate('Starter')}
             >
                 <Image
                     source={require('../assets/signout.png')} // Replace with the actual path to your image
