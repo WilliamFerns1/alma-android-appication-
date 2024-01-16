@@ -101,9 +101,12 @@ export default function BottomNavBar(props) {
             }
         }
         updatedCurrentsMonthCalendarData = oldMonthCalendarData;
+        // log the entire updatedCurrentsMonthCalendarData, as a string.
+        console.log("updatedCurrentsMonthCalendarData: ", JSON.stringify(updatedCurrentsMonthCalendarData))
+        console.log("updatedCurrentsMonthCalendarData: ", JSON.stringify(updatedCurrentsMonthCalendarData))
         if (documentSnapshot.exists()) {
             console.log("updating user document exists")
-            await setDoc(documentRef, {updatedCurrentsMonthCalendarData}, {merge: true});
+            await setDoc(documentRef, {currentMonthCalendar: updatedCurrentsMonthCalendarData}, {merge: true});
             console.log(`New document with ID ${user?.id} created.`);
         }
         setReloadPage()
@@ -154,7 +157,7 @@ export default function BottomNavBar(props) {
 
                 <TouchableOpacity
                     onPress={() => {
-                        updateTodaysMood(1, setReloadPage)
+                        updateTodaysMood(2, setReloadPage)
                     }}
                 >
                     <Image
@@ -167,7 +170,7 @@ export default function BottomNavBar(props) {
 
                 <TouchableOpacity
                     onPress={() => {
-                        updateTodaysMood(1, setReloadPage)
+                        updateTodaysMood(3, setReloadPage)
                     }}
                 >
 

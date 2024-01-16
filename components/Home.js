@@ -25,6 +25,7 @@ export default function Home() {
 
     function getReloadPage() {
         setReload(!reload)
+        console.log("reload changed")
     }
 
     // Usage example:
