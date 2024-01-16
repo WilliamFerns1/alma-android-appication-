@@ -1,10 +1,13 @@
 import React from "react";
 import { Text, TextInput, Image, TouchableOpacity, View } from "react-native";
 import { useSignIn } from "@clerk/clerk-expo";
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function SignInScreen() {
     const { signIn, setActive, isLoaded } = useSignIn();
 
+    const navigation = useNavigation();
     const [emailAddress, setEmailAddress] = React.useState("");
     const [password, setPassword] = React.useState("");
 

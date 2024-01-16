@@ -1,4 +1,5 @@
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     View,
     Text,
@@ -7,9 +8,12 @@ import {
 }
 from 'react-native'
 
+import { useSession, useUser } from "@clerk/clerk-expo";
+
 import { useNavigation } from '@react-navigation/native';
 
 export default function BottomNavBar() {
+    const { session, signOut } = useSession();
 
     const navigation = useNavigation();
     return (
@@ -52,8 +56,7 @@ export default function BottomNavBar() {
                 />
                 <Image
                     style={{
-                        width: 44,
-                        height: 44,
+                        width: 44, height: 44,
                     }}
                     source={require('../assets/yellow-circle.png')} // Replace with the actual path to your image
                 />
@@ -77,7 +80,22 @@ export default function BottomNavBar() {
                     borderWidth: 2, // Border width
                     borderColor: 'white', // Border color
                 }}
-                onPress={() => navigation.navigate('Starter')}
+                onPress={async () => {
+                    try {
+                        // Clear local storage
+                        await AsyncStorage.clear();
+
+                        // Reset the navigation stack and navigate to the 'Starter' route
+                        navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'Starter' }],
+                        });
+                        signOut();
+                        navigation.navigate('SignIn')
+                    } catch (error) {
+                        console.error('Error clearing local storage:', error);
+                    }
+                }}
             >
                 <Image
                     source={require('../assets/signout.png')} // Replace with the actual path to your image

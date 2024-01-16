@@ -2,8 +2,7 @@
 import { useState, useEffect } from "react";
 import {
     StyleSheet,
-    Text,
-    TextInput,
+    Text, TextInput,
     TouchableOpacity,
     View,
     Image,
@@ -90,7 +89,7 @@ export default function Home() {
                             {
                                 weekArray.week.map((day, dayIndex) => {
                                     return (
-                                        <View
+                                        <TouchableOpacity
                                             key={dayIndex}
                                             style={{
                                                 display: "flex",
@@ -111,7 +110,7 @@ export default function Home() {
                                             >
                                                 {day.day}
                                             </Text>
-                                        </View>
+                                        </TouchableOpacity>
                                     )
                                 })
                             }
@@ -130,6 +129,7 @@ export default function Home() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                justifyContent: "space-between",
                 gap: 20,
             }}
         >
