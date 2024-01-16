@@ -9,47 +9,53 @@ import {
     Image,
 } from "react-native";
 
-import { useSession } from "@clerk/clerk-react";
+import { useSession, useUser } from "@clerk/clerk-expo";
+
+import { getFirestore, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import firebaseConfig from "../firebaseConfig";
+import { initializeApp } from "firebase/app";
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 export default function Home() {
     const { loading, session } = useSession();
+    const {user} = useUser()
+    const [ userData, setUserData ] = useState(null);
+    useEffect(() => {
+        async function getUserData(db, collectionName, documentID) {
+            try {
+            // Check if the document ID is null or undefined
+            if (!documentID) {
+              console.log("Document ID is null or undefined.");
+              return;
+            }
 
-    const [userExistingMonthOnFirestore, setUserExistingMonthOnFirestore] = useState(false)
-    const [userMonthData, setUserMonthData] = useState({})
-    function getCurrentDate() {
-        const currentDate = new Date();
+            const collectionRef = collection(db, collectionName);
+            const documentRef = doc(collectionRef, documentID);
 
-        // Get current date of the month
-        const dayOfMonth = currentDate.getDate();
+            // Check if the document exists
+            const documentSnapshot = await getDoc(documentRef);
 
-        // Get current month name
-        const monthNames = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
-        const monthName = monthNames[currentDate.getMonth()];
+            if (documentSnapshot.exists()) {
+              console.log(`Document with ID ${documentID} already exists.`);
+            setUserData(documentSnapshot);
+            }
+          } catch (error) {
+            console.error("Error getting document:", error);
+          }
+        }
 
-        // Get current year
-        const year = currentDate.getFullYear();
-
-        // Format current date and year as a string
-        const formattedDate = `${monthName} ${year}`;
-
-        return {
-            dayOfMonth,
-            formattedDate
-        };
-    }
-
-    // Example usage
-    const { dayOfMonth, formattedDate } = getCurrentDate();
-    console.log(`Current date of the month: ${dayOfMonth}`);
-    console.log(`Current date and year: ${formattedDate}`);
+        // Usage example:
+        const collectionName = "users";
+        const documentID = user?.id;
+        getUserData(db, collectionName, documentID);
+    }, [])
 
     useEffect(() => {
-        console.log("session changed")
-    }, [loading, session])
-
+        console.log("User Data: ");
+        console.log(userData ? userData.data() : "No user data");
+    }, [userData])
     return (
         <View
             style={{
@@ -153,22 +159,7 @@ export default function Home() {
                     >
                         S
                     </Text>
-                    {
-                        userExistingMonthOnFirestore ? (
-                            <Text>userExistingMonthOnFirestore</Text>
-                        ) : (
-                            <Text>Not Existing Yet!</Text>
-                        )
-                    }
                 </View>
-                <Text
-                    style={{
-                        fontWeight: "bold",
-                        color: "#fff",
-                        fontSize: 20,
-                    }}
-                >{formattedDate}
-                </Text>
             </View>
         </View>
     )
