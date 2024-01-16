@@ -81,8 +81,6 @@ export default function BottomNavBar() {
                 }}
                 onPress={async () => {
                     try {
-                        // Clear local storage
-                        await AsyncStorage.clear();
                         signOut();
                         navigation.navigate('SignIn')
                     } catch (error) {
