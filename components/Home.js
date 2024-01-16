@@ -39,7 +39,7 @@ export default function Home() {
 
             if (documentSnapshot.exists()) {
               console.log(`Document with ID ${documentID} already exists.`);
-            setUserData(documentSnapshot);
+            setUserData(documentSnapshot.data());
             }
           } catch (error) {
             console.error("Error getting document:", error);
@@ -54,8 +54,26 @@ export default function Home() {
 
     useEffect(() => {
         console.log("User Data: ");
-        console.log(userData ? userData.data() : "No user data");
+        console.log(userData ? userData : "No user data");
+        console.log(userData.currentMonthCalendar ? userData.currentMonthCalendar : "No current month calendar")
     }, [userData])
+
+    function EmotionCalender() {
+        return (
+            <View>
+                {
+                    userData.currentMonthCalendar && userData['currentMonthCalendar']?.map((day, index) => {
+                        return (
+                            <View>
+                                <Text>{day['day']}</Text>
+                            </View>
+                        )
+                    })
+                }
+            </View>
+        )
+    }
+
     return (
         <View
             style={{
@@ -160,6 +178,7 @@ export default function Home() {
                         S
                     </Text>
                 </View>
+                <EmotionCalender />
             </View>
         </View>
     )
