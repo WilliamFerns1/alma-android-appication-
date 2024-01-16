@@ -156,72 +156,162 @@ export default function Home() {
             >
                 <View
                     style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-evenly",
-                        flexDirection: "row",
                         width: "100%",
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        alignSelf: "stretch",
                     }}
                 >
-                    <Text
+                    <View
                         style={{
-                            color:"#fff",
-                            fontWeight: "bold",
+                            display: "flex",
+                            paddingHorizontal: 10,
+                            paddingVertical: 10,
+                            width: "13%",
+                            justifyContent: "center",
+                            alignItems: "center",
                         }}
                     >
-                        S
 
-                    </Text>
-                    <Text
-                        style={{
-                            color:"#fff",
-                            fontWeight: "bold",
-                        }}
-                    >
-                        M
+                        <Text
+                            style={{
+                                color:"#fff",
+                                fontWeight: "bold",
 
-                    </Text>
-                    <Text
-                        style={{
-                            color:"#fff",
-                            fontWeight: "bold",
-                        }}
-                    >
-                        T
+                            }}
+                        >
+                            S
 
-                    </Text>
-                    <Text
+                        </Text>
+                    </View>
+                    <View
                         style={{
-                            color:"#fff",
-                            fontWeight: "bold",
+                            display: "flex",
+                            paddingHorizontal: 10,
+                            paddingVertical: 10,
+                            width: "13%",
+                            justifyContent: "center",
+                            alignItems: "center",
                         }}
                     >
-                        W
-                    </Text>
-                    <Text
+
+                        <Text
+                            style={{
+                                color:"#fff",
+                                fontWeight: "bold",
+
+                            }}
+                        >
+                            M
+                        </Text>
+                    </View>
+                    <View
                         style={{
-                            color:"#fff",
-                            fontWeight: "bold",
+                            display: "flex",
+                            paddingHorizontal: 10,
+                            paddingVertical: 10,
+                            width: "13%",
+                            justifyContent: "center",
+                            alignItems: "center",
                         }}
                     >
-                        T
-                    </Text>
-                    <Text
+
+                        <Text
+                            style={{
+                                color:"#fff",
+                                fontWeight: "bold",
+
+                            }}
+                        >
+                            T
+                        </Text>
+                    </View>
+                    <View
                         style={{
-                            color:"#fff",
-                            fontWeight: "bold",
+                            display: "flex",
+                            paddingHorizontal: 10,
+                            paddingVertical: 10,
+                            width: "13%",
+                            justifyContent: "center",
+                            alignItems: "center",
                         }}
                     >
-                        F
-                    </Text>
-                    <Text
+
+                        <Text
+                            style={{
+                                color:"#fff",
+                                fontWeight: "bold",
+
+                            }}
+                        >
+                            W
+                        </Text>
+                    </View>
+                    <View
                         style={{
-                            color:"#fff",
-                            fontWeight: "bold",
+                            display: "flex",
+                            paddingHorizontal: 10,
+                            paddingVertical: 10,
+                            width: "13%",
+                            justifyContent: "center",
+                            alignItems: "center",
                         }}
                     >
-                        S
-                    </Text>
+
+                        <Text
+                            style={{
+                                color:"#fff",
+                                fontWeight: "bold",
+
+                            }}
+                        >
+                            T
+                        </Text>
+                    </View>
+                    <View
+                        style={{
+                            display: "flex",
+                            paddingHorizontal: 10,
+                            paddingVertical: 10,
+                            width: "13%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+
+                        <Text
+                            style={{
+                                color:"#fff",
+                                fontWeight: "bold",
+
+                            }}
+                        >
+                            F
+                        </Text>
+                    </View>
+                    <View
+                        style={{
+                            display: "flex",
+                            paddingHorizontal: 10,
+                            paddingVertical: 10,
+                            width: "13%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+
+                        <Text
+                            style={{
+                                color:"#fff",
+                                fontWeight: "bold",
+
+                            }}
+                        >
+                           S
+                        </Text>
+                    </View>
                 </View>
                 <EmotionCalender />
             </View>
