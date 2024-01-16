@@ -9,8 +9,11 @@ import {
     Image,
 } from "react-native";
 
+import { useSession } from "@clerk/clerk-react";
 
 export default function Home() {
+    const { loading, session } = useSession();
+
     const [userExistingMonthOnFirestore, setUserExistingMonthOnFirestore] = useState(false)
     const [userMonthData, setUserMonthData] = useState({})
     function getCurrentDate() {
@@ -43,7 +46,9 @@ export default function Home() {
     console.log(`Current date of the month: ${dayOfMonth}`);
     console.log(`Current date and year: ${formattedDate}`);
 
-
+    useEffect(() => {
+        console.log("session changed")
+    }, [loading, session])
 
     return (
         <View
