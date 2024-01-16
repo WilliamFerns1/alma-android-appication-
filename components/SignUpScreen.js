@@ -255,17 +255,67 @@ export default function SignUpScreen() {
                 <View
                     style={{
                         width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: 20,
                     }}
                 >
-                    <View>
+                    <Text
+                        style={{
+                            color: "white",
+                        }}
+                    >
+                        Check your email for a verification code.
+                    </Text>
+                    <View
+                        style={{
+                            width: "100%"
+                        }}
+                    >
                         <TextInput
+                            style={{
+                                width: "100%",
+                                height: 39,
+                                backgroundColor: 'white', // Set background color to white
+                                borderRadius: 4, // Add border radius for rounded corners
+                                borderWidth: 0, // Add border width for the stroke
+                                borderColor: '#ccc', // Set border color
+                                paddingHorizontal: 9, // Add horizontal padding
+                                fontSize: 15, // Set font size
+                                color: 'black', // Set text color
+                            }}
                             value={code}
                             placeholder="Code..."
                             onChangeText={(code) => setCode(code)}
                         />
                     </View>
-                    <TouchableOpacity onPress={onPressVerify}>
-                        <Text>Verify Email</Text>
+                    <TouchableOpacity
+                        onPress={onPressVerify}
+
+                        style={{
+                            display: "flex",
+                            paddingHorizontal: 14,
+                            paddingVertical: 21,
+                            flexDirection: "column",
+                            width: "99%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            borderRadius: 9,
+                            backgroundColor: "#9948FF",
+                            gap: 15,
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: "#fff",
+                                fontSize: 23,
+                                fontWeight: "bold"
+                            }}
+                        >
+                            Verify Email
+                        </Text>
                     </TouchableOpacity>
                 </View>
             )}
