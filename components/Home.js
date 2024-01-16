@@ -314,6 +314,16 @@ export default function Home() {
                     </View>
                 </View>
                 <EmotionCalender />
+                <Text
+                    style={{
+                        color: "white",
+                        fontWeight: "bold",
+                        fontSize: 20,
+                        width: "100%",
+                    }}
+                >
+                    {userData && userData.currentMonthYear}
+                </Text>
             </View>
         </View>
     )
