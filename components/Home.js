@@ -85,6 +85,7 @@ export default function Home({ route, navigation}) {
     }
     function ChangeMoodUI() {
         const day = clickedDayObject.day
+        const monthAndYear = userData && userData.currentMonthYear
         return (
             <View
                 style={{
@@ -169,7 +170,7 @@ export default function Home({ route, navigation}) {
                         backgroundColor: "#9949FF",
                     }}
                     onPress={() => {
-                        navigation.navigate('ChangeMood', { day });
+                        navigation.navigate('ChangeMood', { day, monthAndYear });
                     }}
                 >
                     <Text

@@ -5,7 +5,8 @@ import {
 
 export default function ChangeMood({ route }) {
 
-    const { day } = route.params;
+    const { day, monthAndYear } = route.params;
+    console.log("MonthAndYear: ", monthAndYear)
     return (
         <SafeAreaView
             style={{
