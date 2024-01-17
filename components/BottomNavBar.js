@@ -216,7 +216,11 @@ export default function BottomNavBar(props) {
                             </TouchableOpacity>
                         </View>
 
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                navigation.navigate("Stats")
+                            }}
+                        >
                             <Image
                                 source={require('../assets/stats.png')}
                                 style={{

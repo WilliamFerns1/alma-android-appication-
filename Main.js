@@ -5,7 +5,7 @@ import { useSession, useUser } from "@clerk/clerk-expo";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDoc, setDoc } from "firebase/firestore";
 import ChangeMood from "./components/ChangeMood";
-
+import Stats from "./components/Stats"
 import { navigationRef } from './utils/navigationRef';
 import SignUpScreen from "./components/SignUpScreen";
 import Starter from "./components/Starter";
@@ -116,6 +116,7 @@ export default function Main() {
                     {(props) => <Home {...props} />}
                 </Stack.Screen>
                 <Stack.Screen name="ChangeMood" component={ChangeMood} options={{ headerShown: false }} />
+                <Stack.Screen name="Stats" component={Stats} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );
