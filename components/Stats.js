@@ -125,7 +125,6 @@ export default function Stats() {
         }
     }, [userData])
     if (oneMonthCalendarAndChart) {
-
         return (
             <SafeAreaView
                 style={{

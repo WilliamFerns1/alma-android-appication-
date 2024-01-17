@@ -43,7 +43,28 @@ export default function Main() {
 
                 if (documentSnapshot.exists()) {
                     console.log(`Document with ID ${documentID} already exists.`);
-                    setDocData(documentSnapshot.data());
+                    // Append the month to to a previousMonths key array on the document in firebase if the current month is not
+                    // the same as the one in the document. This means that the currentMonthCalendar is updated, and we should also
+                    // create a new currentMonthCalendar.
+                    //
+                    const currentMonthYearValue = documentSnapshot.data()['currentMonthYear'];
+                    if (currentMonthYearValue !== currentMonthYear) {
+                        const updatedData = {
+                            previousMonths: firebase.firestore.FieldValue.arrayUnion(
+                                {
+                                    monthAndYear: currentMonthYearValue,
+                                    monthData: documentSnapshot.data()['currentMonthCalendar'],
+                                }
+                            ),
+                            currentMonthCalendar: weeksArray,
+                            currentMonthYear: currentMonthYear,
+                        };
+
+                        setDoc(documentRef, updatedData, {merge: true});
+                        // Check if the document exists
+                        const documentSnapshot = await getDoc(documentRef);
+                    }
+                    setDocData(documentSnapshot.data())
 
                 } else {
                     // Document doesn't exist, create a new one
@@ -55,7 +76,6 @@ export default function Main() {
                 console.error("Error checking/creating document:", error);
             }
         }
-
         // Usage example:
         const collectionName = "users";
         const documentID = user?.id;
