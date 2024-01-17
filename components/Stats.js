@@ -22,14 +22,21 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export default function Stats() {
-    const [timeFrameOption, setTimeFrameOption] = useState("Monthly Stats");
+    const [timeFrameOption, setTimeFrameOption] = useState("1 Month Stats");
     const {user} = useUser()
     const [userData, setUserData] = useState({})
     const [pieChartData, setPieChartData] = useState({})
-    const [toggleTimeFrimePopup, setToggleTimeFrimePopup] = useState(false)
-
+    const [toggleTimeFramePopup, setToggleTimeFramePopup] = useState(false)
     const collectionName = "users";
     const documentID = user?.id;
+
+
+
+    const [oneMonthCalendarAndChart, setOneMonthCalendarAndChart] = useState(true);
+    const [threeMonthCalendarAndChart, setThreeMonthCalendarAndChart] = useState(false);
+    const [sixMonthCalendarAndChart, setSixMonthCalendarAndChart] = useState(false);
+    const [twelveMonthCalendarAndChart, setTwelveMonthCalendarAndChart] = useState(false);
+    const [allTimeCalendarAndChart, setAllTimeCalendarAndChart ] = useState(false);
 
     async function getUserData(db, collectionName, documentID) {
         try {
@@ -134,7 +141,7 @@ export default function Stats() {
                     backgroundColor: "#720455",
                     borderRadius: 10,
                     width: "90%",
-                    marginBottom: toggleTimeFrimePopup ? 0 : "auto",
+                    marginBottom: toggleTimeFramePopup ? 0 : "auto",
                 }}
             >
                 <Text
@@ -321,7 +328,7 @@ export default function Stats() {
                             backgroundColor: "#9949FF",
                         }}
                         onPress={() => {
-                            setToggleTimeFrimePopup(!toggleTimeFrimePopup);
+                            setToggleTimeFramePopup(!toggleTimeFramePopup);
                         }}
                     >
                         <Text
@@ -334,13 +341,13 @@ export default function Stats() {
                             Select Time Frame
                         </Text>
                         <Image
-                            source={toggleTimeFrimePopup ? require('../assets/CloseIcon.png') : require("../assets/down-icon.png")}
+                            source={toggleTimeFramePopup ? require('../assets/CloseIcon.png') : require("../assets/down-icon.png")}
                         />
                     </TouchableOpacity>
                 </View>
             </View>
             {
-                toggleTimeFrimePopup ? (
+                toggleTimeFramePopup ? (
                     <View
                         style={{
                             display: "flex",
@@ -366,6 +373,11 @@ export default function Stats() {
                                 backgroundColor: "rgba(114, 4, 85, 0.88)",
                                 borderRadius: 5,
                             }}
+                            onPress={() => {
+                                setOneMonthCalendarAndChart(true);
+                                setTimeFrameOption("1 Month Stats");
+                                setToggleTimeFramePopup(false)
+                            }}
                         >
                             <Text
                                 style={{
@@ -388,6 +400,11 @@ export default function Stats() {
                                 backgroundColor: "rgba(114, 4, 85, 0.88)",
                                 borderRadius: 5,
                             }}
+                            onPress={() => {
+                                setThreeMonthCalendarAndChart(true);
+                                setTimeFrameOption("3 Months Stats");
+                                setToggleTimeFramePopup(false)
+                            }}
                         >
                             <Text
                                 style={{
@@ -395,7 +412,7 @@ export default function Stats() {
                                     fontWeight: "bold",
                                 }}
                             >
-                                1 Month
+                                3 Months
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -409,6 +426,11 @@ export default function Stats() {
                                 backgroundColor: "rgba(114, 4, 85, 0.88)",
                                 borderRadius: 5,
                             }}
+                            onPress={() => {
+                                setSixMonthCalendarAndChart(true);
+                                setTimeFrameOption("6 Months Stats");
+                                setToggleTimeFramePopup(false)
+                            }}
                         >
                             <Text
                                 style={{
@@ -416,7 +438,7 @@ export default function Stats() {
                                     fontWeight: "bold",
                                 }}
                             >
-                                1 Month
+                                6 Months
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -430,6 +452,11 @@ export default function Stats() {
                                 backgroundColor: "rgba(114, 4, 85, 0.88)",
                                 borderRadius: 5,
                             }}
+                            onPress={() => {
+                                setTwelveMonthCalendarAndChart(true);
+                                setTimeFrameOption("12 Months Stats");
+                                setToggleTimeFramePopup(false)
+                            }}
                         >
                             <Text
                                 style={{
@@ -437,7 +464,7 @@ export default function Stats() {
                                     fontWeight: "bold",
                                 }}
                             >
-                                1 Month
+                                12 Months
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -451,6 +478,11 @@ export default function Stats() {
                                 backgroundColor: "rgba(114, 4, 85, 0.88)",
                                 borderRadius: 5,
                             }}
+                            onPress={() => {
+                                setAllTimeCalendarAndChart(true);
+                                setTimeFrameOption("All Time Stats");
+                                setToggleTimeFramePopup(false)
+                            }}
                         >
                             <Text
                                 style={{
@@ -458,7 +490,7 @@ export default function Stats() {
                                     fontWeight: "bold",
                                 }}
                             >
-                                1 Month
+                               All Time
                             </Text>
                         </TouchableOpacity>
                     </View>
