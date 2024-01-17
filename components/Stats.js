@@ -301,6 +301,42 @@ export default function Stats() {
                         </Text>
                     </View>
                 </View>
+                <View
+                    style={{
+                        marginTop: 20,
+                        width: "100%",
+                    }}
+                >
+                    <TouchableOpacity
+                        style={{
+                            display: "flex",
+                            width: "100%",
+                            padding: 15,
+                            paddingHorizontal: 17,
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            borderRadius: 10,
+                            backgroundColor: "#9949FF",
+                        }}
+                        onPress={() => {
+                            return;
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: "#fff",
+                                fontSize: 20,
+                                fontWeight: "bold",
+                            }}
+                        >
+                            Select Time Frame
+                        </Text>
+                        <Image
+                            source={require("../assets/down-icon.png")}
+                        />
+                    </TouchableOpacity>
+                </View>
             </View>
             <View
                 style={{
