@@ -26,6 +26,7 @@ export default function Stats() {
     const {user} = useUser()
     const [userData, setUserData] = useState({})
     const [pieChartData, setPieChartData] = useState({})
+    const [toggleTimeFrimePopup, setToggleTimeFrimePopup] = useState(false)
 
     const collectionName = "users";
     const documentID = user?.id;
@@ -113,7 +114,7 @@ export default function Stats() {
                 display: "flex",
                 width: "100%",
                 minHeight: "100%",
-                paddingTop: 40,
+                paddingTop: 20,
                 paddingBottom: 0,
                 flexDirection: "column",
                 justifyContent: "flex-end",
@@ -133,13 +134,13 @@ export default function Stats() {
                     backgroundColor: "#720455",
                     borderRadius: 10,
                     width: "90%",
-                    marginBottom: "auto",
+                    marginBottom: toggleTimeFrimePopup ? 0 : "auto",
                 }}
             >
                 <Text
                     style={{
                         color: "#fff",
-                        fontSize: 24,
+                        fontSize: 20,
                         fontWeight: "bold",
                     }}
                 >
@@ -183,7 +184,7 @@ export default function Stats() {
                         <Text
                             style={{
                                 fontWeight: "bold",
-                                fontSize: 16,
+                                fontSize: 13,
                                 color: "#fff",
                             }}
                         >
@@ -193,7 +194,7 @@ export default function Stats() {
                         <Text
                             style={{
                                 fontWeight: "bold",
-                                fontSize: 16,
+                                fontSize: 13,
                                 color: "#fff",
                             }}
                         >
@@ -203,7 +204,7 @@ export default function Stats() {
                         <Text
                             style={{
                                 fontWeight: "bold",
-                                fontSize: 16,
+                                fontSize: 13,
                                 color: "#fff",
                             }}
                         >
@@ -303,7 +304,7 @@ export default function Stats() {
                 </View>
                 <View
                     style={{
-                        marginTop: 20,
+                        marginTop: 10,
                         width: "100%",
                     }}
                 >
@@ -311,7 +312,7 @@ export default function Stats() {
                         style={{
                             display: "flex",
                             width: "100%",
-                            padding: 15,
+                            padding: 10,
                             paddingHorizontal: 17,
                             flexDirection: "row",
                             justifyContent: "space-between",
@@ -320,7 +321,7 @@ export default function Stats() {
                             backgroundColor: "#9949FF",
                         }}
                         onPress={() => {
-                            return;
+                            setToggleTimeFrimePopup(!toggleTimeFrimePopup);
                         }}
                     >
                         <Text
@@ -338,6 +339,135 @@ export default function Stats() {
                     </TouchableOpacity>
                 </View>
             </View>
+            {
+                toggleTimeFrimePopup ? (
+                    <View
+                        style={{
+                            display: "flex",
+                            width: "100%",
+                            marginBottom: "auto",
+                            padding: 8,
+                            paddingHorizontal: 18,
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 10,
+                            backgroundColor: "rgba(4, 6, 55, 0.95)",
+                        }}
+                    >
+                        <TouchableOpacity
+                            style={{
+                                display: "flex",
+                                width: "100%",
+                                padding: 10,
+                                alignItems: "center",
+                                borderWidth: 1,
+                                borderColor: "#9949FF",
+                                backgroundColor: "rgba(114, 4, 85, 0.88)",
+                                borderRadius: 5,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    color: "#fff",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                1 Month
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={{
+                                display: "flex",
+                                width: "100%",
+                                padding: 10,
+                                alignItems: "center",
+                                borderWidth: 1,
+                                borderColor: "#9949FF",
+                                backgroundColor: "rgba(114, 4, 85, 0.88)",
+                                borderRadius: 5,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    color: "#fff",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                1 Month
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{
+                                display: "flex",
+                                width: "100%",
+                                padding: 10,
+                                alignItems: "center",
+                                borderWidth: 1,
+                                borderColor: "#9949FF",
+                                backgroundColor: "rgba(114, 4, 85, 0.88)",
+                                borderRadius: 5,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    color: "#fff",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                1 Month
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{
+                                display: "flex",
+                                width: "100%",
+                                padding: 10,
+                                alignItems: "center",
+                                borderWidth: 1,
+                                borderColor: "#9949FF",
+                                backgroundColor: "rgba(114, 4, 85, 0.88)",
+                                borderRadius: 5,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    color: "#fff",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                1 Month
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{
+                                display: "flex",
+                                width: "100%",
+                                padding: 10,
+                                alignItems: "center",
+                                borderWidth: 1,
+                                borderColor: "#9949FF",
+                                backgroundColor: "rgba(114, 4, 85, 0.88)",
+                                borderRadius: 5,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    color: "#fff",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                1 Month
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : (
+                    <View
+                    >
+                    </View>
+                )
+            }
             <View
                 style={{
                     width: "100%",
