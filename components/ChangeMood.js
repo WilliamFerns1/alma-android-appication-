@@ -25,7 +25,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function ChangeMood({ route, navigation }) {
     const {user} = useUser();
     const [currentlyChosenColor, setCurrentlyChosenColor] = useState('')
-    const { day, monthAndYear,setReloadPage } = route.params;
+    const { day, monthAndYear, setReloadPage } = route.params;
     const [changingMoodLoading, setChangingMoodLoading] = useState(false)
 
     async function updateSelectedDateMood(date, userEmotionOption, setReloadPage) {

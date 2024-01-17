@@ -21,8 +21,9 @@ import { initializeApp } from "firebase/app";
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export default function Stats() {
+export default function Stats({ route, navigation}) {
     const [timeFrameOption, setTimeFrameOption] = useState("1 Month Stats");
+    const { setReloadPage } = route?.params || {};
     const {user} = useUser()
     const [userData, setUserData] = useState({})
     const [pieChartData, setPieChartData] = useState({})
@@ -30,7 +31,7 @@ export default function Stats() {
     const collectionName = "users";
     const documentID = user?.id;
 
-
+    //previousMonths
 
     const [oneMonthCalendarAndChart, setOneMonthCalendarAndChart] = useState(true);
     const [threeMonthCalendarAndChart, setThreeMonthCalendarAndChart] = useState(false);
@@ -362,7 +363,6 @@ export default function Stats() {
                             style={{
                                 display: "flex",
                                 width: "100%",
-                                marginBottom: "auto",
                                 padding: 8,
                                 paddingHorizontal: 18,
                                 flexDirection: "column",
@@ -510,10 +510,68 @@ export default function Stats() {
                             </TouchableOpacity>
                         </View>
                     ) : (
-                        <View
-                        >
-                        </View>
-                    )
+                            (userData?.currentMonthCalendar ?? []).map((weekArray, index) => (
+                                <View
+                                    style={{
+                                        width: "100%",
+                                        marginBottom: "auto",
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        flexWrap: "wrap",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        gap: 10
+                                    }}
+                                >
+                                    <View
+                                        key={index}
+                                        style={{
+                                            width: "90%",
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            justifyContent: index === userData.currentMonthCalendar.length - 1 ? "flex-start" : "space-between",
+                                            alignItems: "center",
+                                            alignSelf: "stretch",
+                                        }}
+                                    >
+                                        {weekArray.week.map((day, dayIndex) => (
+                                            <TouchableOpacity
+                                                key={dayIndex}
+                                                style={{
+                                                    display: "flex",
+                                                    paddingHorizontal: 10,
+                                                    paddingVertical: 10,
+                                                    borderRadius: 4,
+                                                    width: "13%",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                    backgroundColor: day.value === 0 ? "#464646" : day.value === 1 ? "green" : day.value === 2 ? "yellow" : "red",
+                                                    marginRight: index === userData.currentMonthCalendar.length - 1 ? "1.28%" : 0,
+                                                }}
+                                                onPress={() => {
+                                                    navigation.navigate('ChangeMood', {
+                                                        day: day.day,
+                                                        monthAndYear: userData['currentMonthYear'],
+                                                        setReloadPage: setReloadPage,
+                                                    });
+                                                }}
+                                            >
+                                                <Text
+                                                    style={{
+                                                        textAlign: "center",
+                                                        color: day.value === 2 ? "black" : "#fff",
+                                                        fontWeight: 'bold',
+                                                    }}
+                                                >
+                                                    {day.day}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        ))}
+                                    </View>
+                                </View>
+                            ))
+                        )
                 }
                 <View
                     style={{

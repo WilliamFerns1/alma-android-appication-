@@ -218,7 +218,9 @@ export default function BottomNavBar(props) {
 
                         <TouchableOpacity
                             onPress={() => {
-                                navigation.navigate("Stats")
+                                navigation.navigate('Stats', {
+                                    setReloadPage: setReloadPage,
+                                });
                             }}
                         >
                             <Image
