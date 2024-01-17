@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import {
     StyleSheet,
     Text,
+    SafeAreaView,
+    ScrollView,
     TextInput,
     ActivityIndicator,
     TouchableOpacity,
@@ -78,51 +80,72 @@ export default function Home({ route }) {
     const [toggleChangeMoodUI, setToggleChangeMoodUI] = useState(false)
     const [clickedDayObject, setClickedDayObject] = useState(null)
     function onClickCalendarDay(day) {
-        setToggleChangeMoodUI(!toggleChangeMoodUI)
+        setToggleChangeMoodUI(true)
         setClickedDayObject(day)
     }
     function ChangeMoodUI() {
         return (
             <View
                 style={{
+                    width: "90%",
                     display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
+                    flexDirection: "column",
+                    justifyContent: "center",
                     alignItems: "center",
-                    gap: 20,
+                    gap: 10,
                 }}
             >
+                <Text
+                    style={{
+                        color: "white",
+                        fontWeight: "bold",
+                        fontSize: 20,
+                        width: "100%",
+                    }}
+                >
+                    {`${clickedDayObject.day} ${userData && userData.currentMonthYear}`}
+                </Text>
                 <View
                     style={{
                         display: "flex",
-                        paddingHorizontal: 10,
-                        borderRadius: 4,
-                        paddingVertical: 10,
-                        width: "13%",
-                        justifyContent: "center",
+                        flexDirection: "row",
+                        width: "90%",
                         alignItems: "center",
-                        backgroundColor: clickedDayObject.value === 0 ? "#464646" : (clickedDayObject.value === 1 ? "green" : (clickedDayObject.value === 2 ? "yellow" : "red")),
+                        gap: 20,
                     }}
                 >
-                    <Text
+                    <View
                         style={{
-                            textAlign: "center",
-                            color: clickedDayObject.value === 2 ? "black" : "#fff",
-                            fontWeight: 'bold'
+                            display: "flex",
+                            paddingHorizontal: 10,
+                            borderRadius: 4,
+                            paddingVertical: 10,
+                            width: "13%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor: clickedDayObject.value === 0 ? "#464646" : (clickedDayObject.value === 1 ? "green" : (clickedDayObject.value === 2 ? "yellow" : "red")),
                         }}
                     >
-                        {clickedDayObject.day}
+                        <Text
+                            style={{
+                                textAlign: "center",
+                                color: clickedDayObject.value === 2 ? "black" : "#fff",
+                                fontWeight: 'bold'
+                            }}
+                        >
+                            {clickedDayObject.day}
+                        </Text>
+                    </View>
+                    <Text
+                        style={{
+                            color: "#fff",
+                            fontWeight: "bold",
+                            fontSize: 15,
+                        }}
+                    >
+                        {clickedDayObject.value === 0 ? "Not chosen yet" : (clickedDayObject.value === 1 ? "Good Day" : (clickedDayObject.value === 2 ? "Normal Day" : "Bad Day"))}
                     </Text>
                 </View>
-                <Text
-                    style={{
-                        color: "#fff",
-                        fontWeight: "bold",
-                        fontSize: 15,
-                    }}
-                >
-                    {clickedDayObject.value === 0 ? "not chosen yet" : (clickedDayObject.value === 1 ? "good" : (clickedDayObject.value === 2 ? "okay" : "bad"))}
-                </Text>
             </View>
         )
     }
@@ -216,217 +239,223 @@ export default function Home({ route }) {
     }
 
     return (
-        <View
+        <SafeAreaView
             style={{
                 width: "100%",
-                height: "100%",
                 backgroundColor: "#030637",
+                minHeight: "100%",
+                height: "100%",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "space-between",
                 gap: 20,
+                paddingTop: 40,
             }}
         >
-            <Image
-                source={require("../assets/logo-without-text.png")}
-                style={{
-                    width: 200,
-                    height: 200,
-                }}
-            />
             <View
                 style={{
-                    backgroundColor: "#3C0753",
-
-                    borderRadius: 4, // Adjust the value as needed
+                    marginTop: "auto",
+                    marginBottom: "auto",
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
                     gap: 20,
-                    width: "90%",
-                    paddingHorizontal: 18,
-                    paddingVertical: 31,
+                    with: "100%",
                 }}
             >
                 <View
                     style={{
-                        width: "100%",
+                        backgroundColor: "#3C0753",
+                        borderRadius: 4,
                         display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        alignSelf: "stretch",
+                        gap: 10,
+                        width: "90%",
+                        paddingHorizontal: 18,
+                        paddingVertical: 21,
                     }}
                 >
                     <View
                         style={{
+                            width: "100%",
                             display: "flex",
-                            paddingHorizontal: 10,
-                            paddingVertical: 10,
-                            width: "13%",
-                            justifyContent: "center",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
                             alignItems: "center",
+                            alignSelf: "stretch",
                         }}
                     >
-
-                        <Text
+                        <View
                             style={{
-                                color:"#fff",
-                                fontWeight: "bold",
-
+                                display: "flex",
+                                paddingHorizontal: 10,
+                                paddingVertical: 10,
+                                width: "13%",
+                                justifyContent: "center",
+                                alignItems: "center",
                             }}
                         >
-                            S
 
-                        </Text>
+                            <Text
+                                style={{
+                                    color:"#fff",
+                                    fontWeight: "bold",
+
+                                }}
+                            >
+                                S
+
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                display: "flex",
+                                paddingHorizontal: 10,
+                                paddingVertical: 10,
+                                width: "13%",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+
+                            <Text
+                                style={{
+                                    color:"#fff",
+                                    fontWeight: "bold",
+
+                                }}
+                            >
+                                M
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                display: "flex",
+                                paddingHorizontal: 10,
+                                paddingVertical: 10,
+                                width: "13%",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+
+                            <Text
+                                style={{
+                                    color:"#fff",
+                                    fontWeight: "bold",
+
+                                }}
+                            >
+                                T
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                display: "flex",
+                                paddingHorizontal: 10,
+                                paddingVertical: 10,
+                                width: "13%",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+
+                            <Text
+                                style={{
+                                    color:"#fff",
+                                    fontWeight: "bold",
+
+                                }}
+                            >
+                                W
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                display: "flex",
+                                paddingHorizontal: 10,
+                                paddingVertical: 10,
+                                width: "13%",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+
+                            <Text
+                                style={{
+                                    color:"#fff",
+                                    fontWeight: "bold",
+
+                                }}
+                            >
+                                T
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                display: "flex",
+                                paddingHorizontal: 10,
+                                paddingVertical: 10,
+                                width: "13%",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+
+                            <Text
+                                style={{
+                                    color:"#fff",
+                                    fontWeight: "bold",
+
+                                }}
+                            >
+                                F
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                display: "flex",
+                                paddingHorizontal: 10,
+                                paddingVertical: 10,
+                                width: "13%",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+
+                            <Text
+                                style={{
+                                    color:"#fff",
+                                    fontWeight: "bold",
+
+                                }}
+                            >
+                               S
+                            </Text>
+                        </View>
                     </View>
-                    <View
+                    <EmotionCalender />
+                    <Text
                         style={{
-                            display: "flex",
-                            paddingHorizontal: 10,
-                            paddingVertical: 10,
-                            width: "13%",
-                            justifyContent: "center",
-                            alignItems: "center",
+                            color: "white",
+                            fontWeight: "bold",
+                            width: "100%",
                         }}
                     >
-
-                        <Text
-                            style={{
-                                color:"#fff",
-                                fontWeight: "bold",
-
-                            }}
-                        >
-                            M
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            display: "flex",
-                            paddingHorizontal: 10,
-                            paddingVertical: 10,
-                            width: "13%",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-
-                        <Text
-                            style={{
-                                color:"#fff",
-                                fontWeight: "bold",
-
-                            }}
-                        >
-                            T
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            display: "flex",
-                            paddingHorizontal: 10,
-                            paddingVertical: 10,
-                            width: "13%",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-
-                        <Text
-                            style={{
-                                color:"#fff",
-                                fontWeight: "bold",
-
-                            }}
-                        >
-                            W
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            display: "flex",
-                            paddingHorizontal: 10,
-                            paddingVertical: 10,
-                            width: "13%",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-
-                        <Text
-                            style={{
-                                color:"#fff",
-                                fontWeight: "bold",
-
-                            }}
-                        >
-                            T
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            display: "flex",
-                            paddingHorizontal: 10,
-                            paddingVertical: 10,
-                            width: "13%",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-
-                        <Text
-                            style={{
-                                color:"#fff",
-                                fontWeight: "bold",
-
-                            }}
-                        >
-                            F
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            display: "flex",
-                            paddingHorizontal: 10,
-                            paddingVertical: 10,
-                            width: "13%",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-
-                        <Text
-                            style={{
-                                color:"#fff",
-                                fontWeight: "bold",
-
-                            }}
-                        >
-                           S
-                        </Text>
-                    </View>
+                        {userData && userData.currentMonthYear}
+                    </Text>
                 </View>
-                <EmotionCalender />
-                <Text
-                    style={{
-                        color: "white",
-                        fontWeight: "bold",
-                        fontSize: 20,
-                        width: "100%",
-                    }}
-                >
-                    {userData && userData.currentMonthYear}
-                </Text>
                 {
                     toggleChangeMoodUI && (
                         <ChangeMoodUI />
                     )
                 }
             </View>
-            <BottomNavBar setReloadPage={getReloadPage}/>
-        </View>
+            <SafeAreaView
+                style={{
+                }}
+            >
+                <BottomNavBar setReloadPage={getReloadPage}/>
+            </SafeAreaView>
+        </SafeAreaView>
     )
 }

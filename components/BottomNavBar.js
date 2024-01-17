@@ -5,7 +5,9 @@ import {
     View,
     Text,
     Image,
+    ScrollView,
     ActivityIndicator,
+    SafeAreaView,
     TouchableOpacity,
 }
 from 'react-native'
@@ -118,7 +120,7 @@ export default function BottomNavBar(props) {
     }
 
     return (
-        <View
+        <SafeAreaView
             style={{
                 width: '100%',
                 display: "flex",
@@ -251,6 +253,6 @@ export default function BottomNavBar(props) {
                         </TouchableOpacity>
                     </View>
                 )}
-        </View>
+        </SafeAreaView>
     );
 }
