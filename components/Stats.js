@@ -10,8 +10,8 @@ import {
     View,
     Image,
 } from "react-native";
-
 import BottomNavBar from "./BottomNavBar"
+import PieChart from 'react-native-pie-chart';
 
 import { useSession, useUser } from "@clerk/clerk-expo";
 import { getFirestore, collection, doc, getDoc, setDoc } from "firebase/firestore";
@@ -145,6 +145,73 @@ export default function Stats() {
                 >
                     {timeFrameOption}
                 </Text>
+                <View
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: "center",
+                        width: "100%",
+                        gap: 20,
+                        flexDirection: "row",
+                    }}
+                >
+                    {pieChartData && (
+                        <View
+                            style={{
+                                padding: 20,
+                                paddingHorizontal: 0,
+                            }}>
+                            <PieChart
+                                widthAndHeight={130} // Adjust the width and height as needed
+                                series={[
+                                    pieChartData["green"],
+                                    pieChartData["red"],
+                                    pieChartData["yellow"],
+                                ]}
+                                sliceColor={["#66940D", "#81FF06", "#FF0D01"]}
+                            />
+                        </View>
+                    )}
+                    <View
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            gap: 5,
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                fontSize: 16,
+                                color: "#fff",
+                            }}
+                        >
+
+                            {`Good Days: ${pieChartData['green']}%`}
+                        </Text>
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                fontSize: 16,
+                                color: "#fff",
+                            }}
+                        >
+
+                            {`Normal Days: ${pieChartData['yellow']}%`}
+                        </Text>
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                fontSize: 16,
+                                color: "#fff",
+                            }}
+                        >
+
+                            {`Bad Days: ${pieChartData['red']}%`}
+                        </Text>
+                    </View>
+                </View>
             </View>
             <View
                 style={{
@@ -156,3 +223,25 @@ export default function Stats() {
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+  blackCircle: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: "#000000",
+    position: "absolute",
+    top: 90, // Adjust the position as needed
+    left: 90, // Adjust the position as needed
+    zIndex: 1,
+  },
+  blackLine: {
+    width: 2,
+    height: 100, // Adjust the height as needed
+    backgroundColor: "#000000",
+    position: "absolute",
+    top: 50, // Adjust the position as needed
+    left: 99, // Adjust the position as needed
+    transform: [{ rotate: "120deg" }], // Adjust the rotation angle as needed
+  },
+});
