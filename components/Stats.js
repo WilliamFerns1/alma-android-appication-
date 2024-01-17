@@ -38,6 +38,15 @@ export default function Stats() {
     const [twelveMonthCalendarAndChart, setTwelveMonthCalendarAndChart] = useState(false);
     const [allTimeCalendarAndChart, setAllTimeCalendarAndChart ] = useState(false);
 
+    function untoggleAllTimeCalendarAndChart() {
+        setOneMonthCalendarAndChart(false);
+        setThreeMonthCalendarAndChart(false);
+        setSixMonthCalendarAndChart(false);
+        setTwelveMonthCalendarAndChart(false);
+        setAllTimeCalendarAndChart(false);
+    }
+
+
     async function getUserData(db, collectionName, documentID) {
         try {
         // Check if the document ID is null or undefined
@@ -374,6 +383,7 @@ export default function Stats() {
                                 borderRadius: 5,
                             }}
                             onPress={() => {
+                                untoggleAllTimeCalendarAndChart();
                                 setOneMonthCalendarAndChart(true);
                                 setTimeFrameOption("1 Month Stats");
                                 setToggleTimeFramePopup(false)
@@ -401,6 +411,7 @@ export default function Stats() {
                                 borderRadius: 5,
                             }}
                             onPress={() => {
+                                untoggleAllTimeCalendarAndChart();
                                 setThreeMonthCalendarAndChart(true);
                                 setTimeFrameOption("3 Months Stats");
                                 setToggleTimeFramePopup(false)
@@ -427,6 +438,7 @@ export default function Stats() {
                                 borderRadius: 5,
                             }}
                             onPress={() => {
+                                untoggleAllTimeCalendarAndChart();
                                 setSixMonthCalendarAndChart(true);
                                 setTimeFrameOption("6 Months Stats");
                                 setToggleTimeFramePopup(false)
@@ -453,6 +465,7 @@ export default function Stats() {
                                 borderRadius: 5,
                             }}
                             onPress={() => {
+                                untoggleAllTimeCalendarAndChart();
                                 setTwelveMonthCalendarAndChart(true);
                                 setTimeFrameOption("12 Months Stats");
                                 setToggleTimeFramePopup(false)
@@ -479,6 +492,7 @@ export default function Stats() {
                                 borderRadius: 5,
                             }}
                             onPress={() => {
+                                untoggleAllTimeCalendarAndChart();
                                 setAllTimeCalendarAndChart(true);
                                 setTimeFrameOption("All Time Stats");
                                 setToggleTimeFramePopup(false)
