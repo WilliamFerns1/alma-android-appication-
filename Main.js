@@ -108,8 +108,8 @@ export default function Main() {
                 <Stack.Screen
                     name="Home"
                     options={{
-
                         initialParams: { createdUserDocument },
+                        headerShown: false, // Set headerShown to false to hide the header
                     }}
                 >
                     {(props) => <Home {...props} />}

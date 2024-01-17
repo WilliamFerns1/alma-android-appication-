@@ -17,15 +17,14 @@ import { initializeApp } from "firebase/app";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-export default function Home(props) {
+export default function Home({ route }) {
     const { loading, session } = useSession();
     const {user} = useUser()
     const [ userData, setUserData ] = useState(null);
     const [reload, setReload] = useState(false)
     const [loadingCalendar, setLoadingCalendar] = useState(false)
 
-
-    const { createdUserDocument } = route.params;
+    const { createdUserDocument } = route?.params || {};
     function getReloadPage() {
         setReload(!reload)
         console.log("reload changed")
@@ -118,7 +117,8 @@ export default function Home(props) {
                                             <Text
                                                 style={{
                                                     textAlign: "center",
-                                                    color: "#fff",
+                                                    color: day.value === 2 ? "black" : "#fff",
+                                                    fontWeight: 'bold'
                                                 }}
                                             >
                                                 {day.day}
