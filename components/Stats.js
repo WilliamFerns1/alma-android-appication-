@@ -37,7 +37,6 @@ export default function Stats() {
           console.log("Document ID is null or undefined.");
           return;
         }
-        setLoadingCalendar(true)
         const collectionRef = collection(db, collectionName);
         const documentRef = doc(collectionRef, documentID);
 
@@ -47,11 +46,9 @@ export default function Stats() {
         if (documentSnapshot.exists()) {
           console.log(`Document with ID ${documentID} already exists.`);
         setUserData(documentSnapshot.data());
-        setLoadingCalendar(false)
         }
       } catch (error) {
         console.error("Error getting document:", error);
-        setLoadingCalendar(false)
       }
     }
 
@@ -61,12 +58,17 @@ export default function Stats() {
     let totalYellowdays = 0;
     let totalRedDays = 0;
     let totalDaysFilledIn = 0;
+
     useEffect(() => {
-        if (userData) {
+        getUserData(db, collectionName, documentID)
+    }, [])
+
+    useEffect(() => {
+        if (userData && userData['currentMonthCalendar']) {
             currentMonthCalendar = userData['currentMonthCalendar']
 
             currentMonthCalendar.map((weekObject, weekIndex) => {
-                for (let i = 0; i < 7; i++) {
+                for (let i = 0; i < weekObject.week.length; i++) {
                     if (
                         weekObject.week[i]['value'] === 1 ||
                         weekObject.week[i]['value'] === 2 ||
@@ -74,7 +76,7 @@ export default function Stats() {
                     ) {
                         if (weekObject.week[i]['value'] === 1) {
                             totalGreenDays++;
-                        } else if (weekObject[i] === 2) {
+                        } else if (weekObject.week[i]['value'] === 2) {
                             totalYellowdays++;
                         } else {
                             totalRedDays++;
@@ -100,10 +102,11 @@ export default function Stats() {
                 yellow: yellowPercentage,
                 red: redPercentage,
             }
+            console.log("formattedDataForPieChart")
             console.log(formattedDataForPieChart)
             setPieChartData(formattedDataForPieChart)
         }
-    }, userData)
+    }, [userData])
     return (
         <SafeAreaView
             style={{
