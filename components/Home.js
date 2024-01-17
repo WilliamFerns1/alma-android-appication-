@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import {
     StyleSheet,
-    Text, TextInput,
+    Text,
+    TextInput,
+    ActivityIndicator,
     TouchableOpacity,
     View,
     Image,
@@ -41,7 +43,7 @@ export default function Home({ route }) {
           console.log("Document ID is null or undefined.");
           return;
         }
-
+        setLoadingCalendar(true)
         const collectionRef = collection(db, collectionName);
         const documentRef = doc(collectionRef, documentID);
 
@@ -51,9 +53,11 @@ export default function Home({ route }) {
         if (documentSnapshot.exists()) {
           console.log(`Document with ID ${documentID} already exists.`);
         setUserData(documentSnapshot.data());
+        setLoadingCalendar(false)
         }
       } catch (error) {
         console.error("Error getting document:", error);
+        setLoadingCalendar(false)
       }
     }
 
@@ -85,50 +89,72 @@ export default function Home({ route }) {
                     gap: 10
                 }}
             >
-                {userData &&
-                    userData.currentMonthCalendar.map((weekArray, index) => (
+                {
+                    loadingCalendar ? (
                         <View
-                            key={index}
                             style={{
-                                width: "100%",
                                 display: "flex",
-                                flexDirection: "row",
-                                justifyContent: index === userData.currentMonthCalendar.length - 1 ? "flex-start" : "space-between",
-                                alignItems: "center",
-                                alignSelf: "stretch",
+                                alignItems: 'center',
+                                justifyContent: "center",
+                                width: "100%",
+                                gap: 20,
                             }}
                         >
-                            {
-                                weekArray.week.map((day, dayIndex) => {
-                                    return (
-                                        <TouchableOpacity
-                                            key={dayIndex}
-                                            style={{
-                                                display: "flex",
-                                                paddingHorizontal: 10,
-                                                paddingVertical: 10,
-                                                width: "13%",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                                backgroundColor: day.value === 0 ? "#464646" : (day.value === 1 ? "green" : (day.value === 2 ? "yellow" : "red")),
-                                                marginRight: index === userData.currentMonthCalendar.length - 1 ? "1.28%" : 0
-                                            }}
-                                        >
-                                            <Text
-                                                style={{
-                                                    textAlign: "center",
-                                                    color: day.value === 2 ? "black" : "#fff",
-                                                    fontWeight: 'bold'
-                                                }}
-                                            >
-                                                {day.day}
-                                            </Text>
-                                        </TouchableOpacity>
-                                    )
-                                })
-                            }
+                            <Text
+                                style={{
+                                    color: "#fff"
+                                }}
+                            >
+                                Getting Calendar...
+                            </Text>
+                            <ActivityIndicator size="large" color="#00ff00" />
                         </View>
-                    ))}
+                    ) : (
+                            userData && userData.currentMonthCalendar.map((weekArray, index) => (
+                                <View
+                                    key={index}
+                                    style={{
+                                        width: "100%",
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        justifyContent: index === userData.currentMonthCalendar.length - 1 ? "flex-start" : "space-between",
+                                        alignItems: "center",
+                                        alignSelf: "stretch",
+                                    }}
+                                >
+                                    {
+                                        weekArray.week.map((day, dayIndex) => {
+                                            return (
+                                                <TouchableOpacity
+                                                    key={dayIndex}
+                                                    style={{
+                                                        display: "flex",
+                                                        paddingHorizontal: 10,
+                                                        paddingVertical: 10,
+                                                        width: "13%",
+                                                        justifyContent: "center",
+                                                        alignItems: "center",
+                                                        backgroundColor: day.value === 0 ? "#464646" : (day.value === 1 ? "green" : (day.value === 2 ? "yellow" : "red")),
+                                                        marginRight: index === userData.currentMonthCalendar.length - 1 ? "1.28%" : 0
+                                                    }}
+                                                >
+                                                    <Text
+                                                        style={{
+                                                            textAlign: "center",
+                                                            color: day.value === 2 ? "black" : "#fff",
+                                                            fontWeight: 'bold'
+                                                        }}
+                                                    >
+                                                        {day.day}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            )
+                                        })
+                                    }
+                                </View>
+                        ))
+                    )
+                }
             </View>
         )
     }
