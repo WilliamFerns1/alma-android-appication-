@@ -170,7 +170,11 @@ export default function Home({ route, navigation}) {
                         backgroundColor: "#9949FF",
                     }}
                     onPress={() => {
-                        navigation.navigate('ChangeMood', { day, monthAndYear });
+                        navigation.navigate('ChangeMood', {
+                            day,
+                            monthAndYear,
+                            setReloadPage: getReloadPage,
+                        });
                     }}
                 >
                     <Text
