@@ -207,7 +207,7 @@ export default function Stats({ route, navigation}) {
                                 }}
                             >
 
-                                {`Green: ${pieChartData['green']}%`}
+                                {`Green: ${pieChartData['green'].toFixed(2)}%`}
                             </Text>
                             <Text
                                 style={{
@@ -217,7 +217,7 @@ export default function Stats({ route, navigation}) {
                                 }}
                             >
 
-                                {`Yellow: ${pieChartData['yellow']}%`}
+                                {`Yellow: ${pieChartData['yellow'].toFixed(2)}%`}
                             </Text>
                             <Text
                                 style={{
@@ -227,7 +227,7 @@ export default function Stats({ route, navigation}) {
                                 }}
                             >
 
-                                {`Red: ${pieChartData['red']}%`}
+                                {`Red: ${pieChartData['red'].toFixed(2)}%`}
                             </Text>
                         </View>
                     </View>
