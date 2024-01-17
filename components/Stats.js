@@ -188,7 +188,7 @@ export default function Stats() {
                             }}
                         >
 
-                            {`Good Days: ${pieChartData['green']}%`}
+                            {`Green: ${pieChartData['green']}%`}
                         </Text>
                         <Text
                             style={{
@@ -198,7 +198,7 @@ export default function Stats() {
                             }}
                         >
 
-                            {`Normal Days: ${pieChartData['yellow']}%`}
+                            {`Yellow: ${pieChartData['yellow']}%`}
                         </Text>
                         <Text
                             style={{
@@ -208,7 +208,96 @@ export default function Stats() {
                             }}
                         >
 
-                            {`Bad Days: ${pieChartData['red']}%`}
+                            {`Red: ${pieChartData['red']}%`}
+                        </Text>
+                    </View>
+                </View>
+                <View
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        width: "100%",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        flexWrap: "wrap",
+                    }}
+                >
+                    <View
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 10,
+                        }}
+                    >
+                        <View
+                            style={{
+                                width: 30,
+                                height: 30,
+                                borderRadius: 4,
+                                backgroundColor:"#66940D"
+                            }}
+                        />
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                color: "#fff",
+                            }}
+                        >
+                            Happy
+                        </Text>
+                    </View>
+                    <View
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 10,
+                        }}
+                    >
+                        <View
+                            style={{
+                                width: 30,
+                                height: 30,
+                                borderRadius: 4,
+                                backgroundColor:"#81FF06"
+                            }}
+                        />
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                color: "#fff",
+                            }}
+                        >
+                            Fine
+                        </Text>
+                    </View>
+                    <View
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 10,
+                        }}
+                    >
+                        <View
+                            style={{
+                                width: 30,
+                                height: 30,
+                                borderRadius: 4,
+                                backgroundColor:"#FF0D01",
+                            }}
+                        />
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                color: "#fff",
+                            }}
+                        >
+                           Bad Day
                         </Text>
                     </View>
                 </View>
@@ -223,25 +312,3 @@ export default function Stats() {
         </SafeAreaView>
     )
 }
-
-const styles = StyleSheet.create({
-  blackCircle: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    backgroundColor: "#000000",
-    position: "absolute",
-    top: 90, // Adjust the position as needed
-    left: 90, // Adjust the position as needed
-    zIndex: 1,
-  },
-  blackLine: {
-    width: 2,
-    height: 100, // Adjust the height as needed
-    backgroundColor: "#000000",
-    position: "absolute",
-    top: 50, // Adjust the position as needed
-    left: 99, // Adjust the position as needed
-    transform: [{ rotate: "120deg" }], // Adjust the rotation angle as needed
-  },
-});
