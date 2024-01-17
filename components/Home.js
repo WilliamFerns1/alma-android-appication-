@@ -75,6 +75,58 @@ export default function Home({ route }) {
         console.log(userData ? userData.currentMonthCalendar : "No current month calendar")
     }, [userData])
 
+    const [toggleChangeMoodUI, setToggleChangeMoodUI] = useState(false)
+    const [clickedDayObject, setClickedDayObject] = useState(null)
+    function onClickCalendarDay(day) {
+        setToggleChangeMoodUI(!toggleChangeMoodUI)
+        setClickedDayObject(day)
+    }
+    function ChangeMoodUI() {
+        return (
+            <View
+                style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    alignItems: "center",
+                    gap: 20,
+                }}
+            >
+                <View
+                    style={{
+                        display: "flex",
+                        paddingHorizontal: 10,
+                        borderRadius: 4,
+                        paddingVertical: 10,
+                        width: "13%",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: clickedDayObject.value === 0 ? "#464646" : (clickedDayObject.value === 1 ? "green" : (clickedDayObject.value === 2 ? "yellow" : "red")),
+                    }}
+                >
+                    <Text
+                        style={{
+                            textAlign: "center",
+                            color: clickedDayObject.value === 2 ? "black" : "#fff",
+                            fontWeight: 'bold'
+                        }}
+                    >
+                        {clickedDayObject.day}
+                    </Text>
+                </View>
+                <Text
+                    style={{
+                        color: "#fff",
+                        fontWeight: "bold",
+                        fontSize: 15,
+                    }}
+                >
+                    {clickedDayObject.value === 0 ? "not chosen yet" : (clickedDayObject.value === 1 ? "good" : (clickedDayObject.value === 2 ? "okay" : "bad"))}
+                </Text>
+            </View>
+        )
+    }
+
     function EmotionCalender() {
         return (
             <View
@@ -131,11 +183,15 @@ export default function Home({ route }) {
                                                         display: "flex",
                                                         paddingHorizontal: 10,
                                                         paddingVertical: 10,
+                                                        borderRadius: 4,
                                                         width: "13%",
                                                         justifyContent: "center",
                                                         alignItems: "center",
                                                         backgroundColor: day.value === 0 ? "#464646" : (day.value === 1 ? "green" : (day.value === 2 ? "yellow" : "red")),
                                                         marginRight: index === userData.currentMonthCalendar.length - 1 ? "1.28%" : 0
+                                                    }}
+                                                    onPress={() => {
+                                                        onClickCalendarDay(day);
                                                     }}
                                                 >
                                                     <Text
@@ -364,6 +420,11 @@ export default function Home({ route }) {
                 >
                     {userData && userData.currentMonthYear}
                 </Text>
+                {
+                    toggleChangeMoodUI && (
+                        <ChangeMoodUI />
+                    )
+                }
             </View>
             <BottomNavBar setReloadPage={getReloadPage}/>
         </View>
