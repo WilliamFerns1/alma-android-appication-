@@ -17,12 +17,15 @@ import { initializeApp } from "firebase/app";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-export default function Home() {
+export default function Home(props) {
     const { loading, session } = useSession();
     const {user} = useUser()
     const [ userData, setUserData ] = useState(null);
     const [reload, setReload] = useState(false)
+    const [loadingCalendar, setLoadingCalendar] = useState(false)
 
+
+    const { createdUserDocument } = route.params;
     function getReloadPage() {
         setReload(!reload)
         console.log("reload changed")
@@ -57,7 +60,7 @@ export default function Home() {
 
     useEffect(() => {
         getUserData(db, collectionName, documentID);
-    }, [])
+    }, [createdUserDocument])
 
     useEffect(() => {
         getUserData(db, collectionName, documentID);

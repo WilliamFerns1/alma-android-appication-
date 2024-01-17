@@ -23,6 +23,8 @@ export default function Main() {
     const { loading, session } = useSession();
     const { user } = useUser();
     const [docData, setDocData] = useState(null);
+    const [createdUserDocument, setCreatedUserDocument] = useState(false);
+
     useEffect(() => {
         async function checkAndCreateDocument(db, collectionName, documentID, data) {
             try {
@@ -45,6 +47,7 @@ export default function Main() {
                 } else {
                     // Document doesn't exist, create a new one
                     await setDoc(documentRef, data, {merge: true});
+                    setCreatedUserDocument(true)
                     console.log(`New document with ID ${documentID} created.`);
                 }
             } catch (error) {
@@ -80,21 +83,18 @@ export default function Main() {
 
         console.log(weeksArray);
         let data;
-        if (docData) {
-            if (docData.currentMonthCalendar) {
-                data = {
-                    userId: user?.id || "",
-                    currentMonthYear: currentMonthYear,
-                };
-            }
-            else {
-                data = {
-                    userId: user?.id || "",
-                    currentMonthCalendar: weeksArray,
-                    currentMonthYear: currentMonthYear,
-                };
-            }
-
+        if (docData && docData.currentMonthCalendar) {
+            data = {
+                userId: user?.id || "",
+                currentMonthYear: currentMonthYear,
+            };
+        }
+        else {
+            data = {
+                userId: user?.id || "",
+                currentMonthCalendar: weeksArray,
+                currentMonthYear: currentMonthYear,
+            };
         }
         checkAndCreateDocument(db, collectionName, documentID, data);
     }, [loading, session, user]);
@@ -105,7 +105,15 @@ export default function Main() {
                 <Stack.Screen name="Starter" component={Starter} options={{ headerShown: false }} />
                 <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
                 <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
-                <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+                <Stack.Screen
+                    name="Home"
+                    options={{
+
+                        initialParams: { createdUserDocument },
+                    }}
+                >
+                    {(props) => <Home {...props} />}
+                </Stack.Screen>
             </Stack.Navigator>
         </NavigationContainer>
     );
