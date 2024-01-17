@@ -334,7 +334,7 @@ export default function Stats() {
                             Select Time Frame
                         </Text>
                         <Image
-                            source={require("../assets/down-icon.png")}
+                            source={toggleTimeFrimePopup ? require('../assets/CloseIcon.png') : require("../assets/down-icon.png")}
                         />
                     </TouchableOpacity>
                 </View>
