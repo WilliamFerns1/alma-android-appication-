@@ -65,7 +65,7 @@ export default function Home({ route }) {
 
     useEffect(() => {
         getUserData(db, collectionName, documentID);
-    }, [createdUserDocument])
+    }, [createdUserDocument, reload ])
 
     useEffect(() => {
         getUserData(db, collectionName, documentID);
@@ -87,65 +87,100 @@ export default function Home({ route }) {
         return (
             <View
                 style={{
-                    width: "90%",
+                    width: "100%",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
-                    gap: 10,
+                    gap: 40,
+                    paddingHorizontal: 20,
                 }}
             >
-                <Text
-                    style={{
-                        color: "white",
-                        fontWeight: "bold",
-                        fontSize: 20,
-                        width: "100%",
-                    }}
-                >
-                    {`${clickedDayObject.day} ${userData && userData.currentMonthYear}`}
-                </Text>
                 <View
                     style={{
                         display: "flex",
-                        flexDirection: "row",
-                        width: "90%",
+                        flexDirection: "column",
+                        width: "100%",
                         alignItems: "center",
                         gap: 20,
                     }}
                 >
+                    <Text
+                        style={{
+                            color: "white",
+                            fontWeight: "bold",
+                            fontSize: 20,
+                            width: "100%",
+                        }}
+                    >
+                        {`${clickedDayObject.day} ${userData && userData.currentMonthYear}`}
+                    </Text>
                     <View
                         style={{
                             display: "flex",
-                            paddingHorizontal: 10,
-                            borderRadius: 4,
-                            paddingVertical: 10,
-                            width: "13%",
-                            justifyContent: "center",
+                            flexDirection: "row",
+                            width: "90%",
                             alignItems: "center",
-                            backgroundColor: clickedDayObject.value === 0 ? "#464646" : (clickedDayObject.value === 1 ? "green" : (clickedDayObject.value === 2 ? "yellow" : "red")),
+                            gap: 20,
                         }}
                     >
-                        <Text
+                        <View
                             style={{
-                                textAlign: "center",
-                                color: clickedDayObject.value === 2 ? "black" : "#fff",
-                                fontWeight: 'bold'
+                                display: "flex",
+                                paddingHorizontal: 10,
+                                borderRadius: 4,
+                                paddingVertical: 10,
+                                width: "13%",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor: clickedDayObject.value === 0 ? "#464646" : (clickedDayObject.value === 1 ? "green" : (clickedDayObject.value === 2 ? "yellow" : "red")),
                             }}
                         >
-                            {clickedDayObject.day}
+                            <Text
+                                style={{
+                                    textAlign: "center",
+                                    color: clickedDayObject.value === 2 ? "black" : "#fff",
+                                    fontWeight: 'bold'
+                                }}
+                            >
+                                {clickedDayObject.day}
+                            </Text>
+                        </View>
+                        <Text
+                            style={{
+                                color: "#fff",
+                                fontWeight: "bold",
+                                fontSize: 15,
+                            }}
+                        >
+                            {clickedDayObject.value === 0 ? "Not chosen yet" : (clickedDayObject.value === 1 ? "Good Day" : (clickedDayObject.value === 2 ? "Normal Day" : "Bad Day"))}
                         </Text>
                     </View>
+                </View>
+                <TouchableOpacity
+                    style={{
+                        width: "100%",
+                        padding: 25,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        borderRadius: 10,
+                        backgroundColor: "#9949FF",
+                    }}
+                    onPress={() => {
+                        updateCalendarDay(clickedDayObject);
+                    }}
+                >
                     <Text
                         style={{
-                            color: "#fff",
                             fontWeight: "bold",
-                            fontSize: 15,
+                            fontSize: 20,
+                            color: "#fff",
                         }}
                     >
-                        {clickedDayObject.value === 0 ? "Not chosen yet" : (clickedDayObject.value === 1 ? "Good Day" : (clickedDayObject.value === 2 ? "Normal Day" : "Bad Day"))}
+                        Change Mood
                     </Text>
-                </View>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -259,8 +294,9 @@ export default function Home({ route }) {
                     marginBottom: "auto",
                     display: "flex",
                     flexDirection: "column",
+                    alignItems: "center",
                     gap: 20,
-                    with: "100%",
+                    width: "100%",
                 }}
             >
                 <View
@@ -452,6 +488,7 @@ export default function Home({ route }) {
             </View>
             <SafeAreaView
                 style={{
+                    width: "100%"
                 }}
             >
                 <BottomNavBar setReloadPage={getReloadPage}/>
