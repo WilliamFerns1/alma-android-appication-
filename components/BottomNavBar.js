@@ -215,13 +215,11 @@ export default function BottomNavBar(props) {
                     }
                 }}
             >
-                <TouchableOpacity>
-                    <Image
-                        source={require('../assets/signout.png')} // Replace with the actual path to your image
-                        style={{
-                        }}
-                    />
-                </TouchableOpacity>
+                <Image
+                    source={require('../assets/signout.png')} // Replace with the actual path to your image
+                    style={{
+                    }}
+                />
             </TouchableOpacity>
         </View>
     )
