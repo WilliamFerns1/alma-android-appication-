@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useSession, useUser } from "@clerk/clerk-expo";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import ChangeMood from "./components/ChangeMood";
 
 import { navigationRef } from './utils/navigationRef';
 import SignUpScreen from "./components/SignUpScreen";
@@ -114,6 +115,7 @@ export default function Main() {
                 >
                     {(props) => <Home {...props} />}
                 </Stack.Screen>
+                <Stack.Screen name="ChangeMood" component={ChangeMood} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

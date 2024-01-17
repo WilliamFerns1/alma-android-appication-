@@ -21,7 +21,7 @@ import { initializeApp } from "firebase/app";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-export default function Home({ route }) {
+export default function Home({ route, navigation}) {
     const { loading, session } = useSession();
     const {user} = useUser()
     const [ userData, setUserData ] = useState(null);
@@ -84,6 +84,7 @@ export default function Home({ route }) {
         setClickedDayObject(day)
     }
     function ChangeMoodUI() {
+        const day = clickedDayObject.day
         return (
             <View
                 style={{
@@ -168,7 +169,7 @@ export default function Home({ route }) {
                         backgroundColor: "#9949FF",
                     }}
                     onPress={() => {
-                        updateCalendarDay(clickedDayObject);
+                        navigation.navigate('ChangeMood', { day });
                     }}
                 >
                     <Text
