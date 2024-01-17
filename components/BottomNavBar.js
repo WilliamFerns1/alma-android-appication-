@@ -31,7 +31,7 @@ export default function BottomNavBar(props) {
     const {user} = useUser()
     const {loading, session} = useSession()
 
-    const { setReloadPage } = props;
+    const { setReloadPage } = props || null;
 
     // Usage example:
     const collectionName = "users";
@@ -70,12 +70,15 @@ export default function BottomNavBar(props) {
     }, [userData])
 
     async function updateTodaysMood(userEmotionOption, setReloadPage) {
-
       try {
         // Check if the document ID is null or undefined
         if (!user?.id) {
           console.log("Document ID is null or undefined.");
           return;
+        }
+        if (setReloadPage === null || setReloadPage === undefined) {
+            navigation.navigate('Home');
+            return;
         }
         setUpdatingCurrentDayEmotion(true)
         const collectionRef = collection(db, 'users');
