@@ -40,18 +40,7 @@ export default function Stats({ route, navigation}) {
     const [allTimeCalendarAndChart, setAllTimeCalendarAndChart ] = useState(false);
 
 
-    const [threeMonthsData, setThreeMonthsData] = useState([])
-    const [sixMonthsData, setSixMonthsData] = useState([])
-    const [twelveMonthsData, setTwelveMonthsData] = useState([])
-    const [allTimeData, setAllTimeData] = useState([])
-
-
-
-
-
-
-
-
+    const [allMonthsData, setAllMonthsData] = useState([]);
 
 
     function untoggleAllTimeCalendarAndChart() {
@@ -141,75 +130,39 @@ export default function Stats({ route, navigation}) {
         }
     }, [userData])
 
-    // Helper function to get month data
-    function getMonthData(month, year) {
-        const formattedMonthAndYear = getFormattedMonthAndYear(month, year);
-
-        // Search for the month data in userData.previousMonths
-        const foundMonth = userData.previousMonths.find(
-            (previousMonthObject) => previousMonthObject.monthAndYear === formattedMonthAndYear
-        );
-
-        if (foundMonth) {
-            console.log(`Month data for ${formattedMonthAndYear} returned`);
-            return foundMonth.monthData;
-        }
-
-        console.log(`Didn't find month data for ${formattedMonthAndYear}`);
-        return `No Data`;
-    }
-
-    // Helper function to get formatted month and year
-    function getFormattedMonthAndYear(month, year) {
-        const monthNames = [
-            "January", "February", "March", "April",
-            "May", "June", "July", "August",
-            "September", "October", "November", "December"
-        ];
-
-        const monthName = monthNames[month];
-        return `${monthName} ${year}`;
-    }
 
     useEffect(() => {
-        async function getThreeMonthData() {
+        async function getAllMonthData() {
             // Get the current date
             var currentDate = new Date();
 
             // Create an array to store the result
             var resultArray = [];
-
-            // Add the current month data
-            resultArray.push({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: getFormattedMonthAndYear(currentDate.getMonth(), currentDate.getFullYear())
-            });
-
-            if (userData.previousMonths.length >= 3) {
-                // Calculate the previous two months
-                for (var i = 0; i < 2; i++) {
-                    currentDate.setMonth(currentDate.getMonth() - 1);
-
-                    // Adjust the year if needed
-                    if (currentDate.getMonth() === 11) {
-                        currentDate.setFullYear(currentDate.getFullYear() - 1);
-                    }
-
-                    // Add the month data to the result array
-                    resultArray.push({
-                        monthData: getMonthData(currentDate.getMonth(), currentDate.getFullYear()),
-                        monthAndYear: getFormattedMonthAndYear(currentDate.getMonth(), currentDate.getFullYear())
-                    });
-                }
-
-                // Output the resulting array
-                console.log(resultArray);
+            if (userData.previousMonths && userData.previousMonths.length !== 0) {
+                resultArray = userData.previousMonths.reverse();
             }
-            setThreeMonthsData(resultArray);
+
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            //Remove this two unshifts below
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            // Output the resulting array
+            console.log(resultArray);
+            setAllMonthsData(resultArray);
         }
 
-        getThreeMonthData();
-    }, [threeMonthCalendarAndChart]);
+        getAllMonthData();
+    }, [userData]);
 
     return (
         <SafeAreaView
@@ -661,7 +614,7 @@ export default function Stats({ route, navigation}) {
 
     {/* const [allTimeCalendarAndChart, setAllTimeCalendarAndChart ] = useState(false); */}
             {
-                (threeMonthCalendarAndChart && userData?.currentMonthCalendar) && userData?.currentMonthCalendar.map((weekArray, index) => (
+                (allMonthsData.length === 1 && threeMonthCalendarAndChart && userData?.currentMonthCalendar) && (
                     <View
                         style={{
                             width: "100%",
@@ -669,59 +622,143 @@ export default function Stats({ route, navigation}) {
                             display: "flex",
                             flexDirection: "row",
                             flexWrap: "wrap",
-                            justifyContent: "space-between",
-                            alignItems: "center",
                             justifyContent: "center",
+                            alignItems: "center",
                             gap: 10
                         }}
                     >
-                        <View
-                            key={index}
-                            style={{
-                                width: "90%",
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: index === userData.currentMonthCalendar.length - 1 ? "flex-start" : "space-between",
-                                alignItems: "center",
-                                alignSelf: "stretch",
-                            }}
-                        >
-                            {weekArray.week.map((day, dayIndex) => (
-                                <TouchableOpacity
-                                    key={dayIndex}
-                                    style={{
-                                        display: "flex",
-                                        paddingHorizontal: 10,
-                                        paddingVertical: 10,
-                                        borderRadius: 4,
-                                        width: "13%",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        backgroundColor: day.value === 0 ? "#464646" : day.value === 1 ? "green" : day.value === 2 ? "yellow" : "red",
-                                        marginRight: index === userData.currentMonthCalendar.length - 1 ? "1.28%" : 0,
-                                    }}
-                                    onPress={() => {
-                                        navigation.navigate('ChangeMood', {
-                                            day: day.day,
-                                            monthAndYear: userData['currentMonthYear'],
-                                            setReloadPage: setReloadPage,
-                                        });
-                                    }}
-                                >
-                                    <Text
+                        {userData.currentMonthCalendar.map((weekArray, index) => (
+                            <View
+                                key={index}
+                                style={{
+                                    width: "90%",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: index === userData.currentMonthCalendar.length - 1 ? "flex-start" : "space-between",
+                                    alignItems: "center",
+                                    alignSelf: "stretch",
+                                }}
+                            >
+                                {weekArray.week.map((day, dayIndex) => (
+                                    <TouchableOpacity
+                                        key={dayIndex}
                                         style={{
-                                            textAlign: "center",
-                                            color: day.value === 2 ? "black" : "#fff",
-                                            fontWeight: 'bold',
+                                            display: "flex",
+                                            paddingHorizontal: 10,
+                                            paddingVertical: 10,
+                                            borderRadius: 4,
+                                            width: "13%",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            backgroundColor: day.value === 0 ? "#464646" : day.value === 1 ? "green" : day.value === 2 ? "yellow" : "red",
+                                            marginRight: index === userData.currentMonthCalendar.length - 1 ? "1.28%" : 0,
+                                        }}
+                                        onPress={() => {
+                                            navigation.navigate('ChangeMood', {
+                                                day: day.day,
+                                                monthAndYear: userData['currentMonthYear'],
+                                                setReloadPage: setReloadPage,
+                                            });
                                         }}
                                     >
-                                        {day.day}
-                                    </Text>
-                                </TouchableOpacity>
-                            ))}
-                        </View>
+                                        <Text
+                                            style={{
+                                                textAlign: "center",
+                                                color: day.value === 2 ? "black" : "#fff",
+                                                fontWeight: 'bold',
+                                            }}
+                                        >
+                                            {day.day}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                        ))}
                     </View>
-                ))
+                )
+            }
+            {
+                (allMonthsData.length > 1 && threeMonthCalendarAndChart && userData?.currentMonthCalendar) && !toggleTimeFramePopup && (
+                    <View
+                        style={{
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexWrap: "wrap",
+                            gap: 20,
+                            marginBottom: "auto",
+                        }}
+                    >
+                        {/* Iterate through the first three items in allMonthsData */}
+                        {allMonthsData.slice(0, 3).map((month, monthIndex) => (
+                            console.log(allMonthsData.slice(0, 3)),
+                            <View
+                                key={monthIndex}
+                                style={{
+                                    width: "30%",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    flexWrap: "wrap",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    gap: 5,
+                                }}
+                            >
+
+                                {month.monthData.map((weekArray, index) => (
+                                    <View
+                                        key={index}
+                                        style={{
+                                            width: "90%",
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            justifyContent: index === month.monthData.length - 1 ? "flex-start" : "space-between",
+                                            alignItems: "center",
+                                            alignSelf: "stretch",
+                                        }}
+                                    >
+                                        {weekArray.week.map((day, dayIndex) => (
+                                            <TouchableOpacity
+                                                key={dayIndex}
+                                                style={{
+                                                    display: "flex",
+                                                    paddingHorizontal: 3,
+                                                    paddingVertical: 3,
+                                                    borderRadius: 1,
+                                                    width: "13%",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                    backgroundColor: day.value === 0 ? "#464646" : day.value === 1 ? "green" : day.value === 2 ? "yellow" : "red",
+                                                    marginRight: index === month.length - 1 ? "1.28%" : 0,
+                                                }}
+                                                onPress={() => {
+                                                    navigation.navigate('ChangeMood', {
+                                                        day: day.day,
+                                                        monthAndYear: month[0].monthAndYear, // Assuming the month object has the monthAndYear property
+                                                        setReloadPage: setReloadPage,
+                                                    });
+                                                }}
+                                            >
+                                                <Text
+                                                    style={{
+                                                        textAlign: "center",
+                                                        color: day.value === 2 ? "black" : "#fff",
+                                                        fontWeight: 'bold',
+                                                        fontSize: 6,
+                                                    }}
+                                                >
+                                                    {day.day}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        ))}
+                                    </View>
+                                ))}
+                            </View>
+                        ))}
+                    </View>
+                )
             }
             {
                 sixMonthCalendarAndChart && (
