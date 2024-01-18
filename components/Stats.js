@@ -1,5 +1,6 @@
 import  { useState, useEffect } from "react";
 import {
+
     StyleSheet,
     Text,
     SafeAreaView,
@@ -155,6 +156,14 @@ export default function Stats({ route, navigation}) {
                 monthData: userData.currentMonthCalendar,
                 monthAndYear: userData.currentMonthYear,
             });
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
             // Output the resulting array
             console.log(resultArray);
             setAllMonthsData(resultArray);
@@ -162,6 +171,13 @@ export default function Stats({ route, navigation}) {
 
         getAllMonthData();
     }, [userData]);
+
+
+    const [toggleSixMonthCalendar, setToggleSixMonthCalendar] = useState(false)
+    const [toggleTwelveMonthCalendar, setToggleTwelveMonthCalendar] = useState(false)
+    const [toggleAllTimeCalendar, setAllTimeTogglehCalendar] = useState(false)
+    // for when loading the calendar popup
+    const [toggleLoadingMonthsCalendars, setToggleLoadingMonthsCalendars] = useState(false)
 
     return (
         <SafeAreaView
@@ -389,7 +405,7 @@ export default function Stats({ route, navigation}) {
                             Select Time Frame
                         </Text>
                         <Image
-                            source={toggleTimeFramePopup ? require('../assets/CloseIcon.png') : require("../assets/down-icon.png")}
+                            source={toggleTimeFramePopup ? require('../assets/CloseIcon.png') :require("../assets/down-icon.png")}
                         />
                     </TouchableOpacity>
                 </View>
@@ -924,7 +940,7 @@ export default function Stats({ route, navigation}) {
                 )
             }
             {
-                (allMonthsData.length > 1 && sixMonthCalendarAndChart && userData?.currentMonthCalendar) && !toggleTimeFramePopup && (
+                (allMonthsData.length > 1 && toggleSixMonthCalendar && sixMonthCalendarAndChart && userData?.currentMonthCalendar) && !toggleTimeFramePopup ? (
                     <View
                         style={{
                             width: "100%",
@@ -947,7 +963,7 @@ export default function Stats({ route, navigation}) {
                                 right: 30,
                             }}
                             onPress={() => {
-                                return null;
+                                setToggleSixMonthCalendar(false)
                             }}
                         >
                             <Image
@@ -1194,7 +1210,78 @@ export default function Stats({ route, navigation}) {
                             ))}
                         </View>
                     </View>
-                )
+                ) : (
+                        (!toggleSixMonthCalendar && !toggleTimeFramePopup && sixMonthCalendarAndChart && userData?.currentMonthCalendar) && (
+                            <View
+                                style={{
+                                    display: "flex",
+                                    width: '100%',
+                                    marginBottom: "auto",
+                                    flexDirection: 'column',
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    gap: 20,
+                                }}
+                            >
+                                <TouchableOpacity
+                                    style={{
+                                        display: "flex",
+                                        width: "80%",
+                                        padding: 10,
+                                        paddingHorizontal: 17,
+                                        flexDirection: "row",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        borderRadius: 10,
+                                        backgroundColor: "#9949FF",
+                                    }}
+                                    onPress={() => {
+                                        setToggleLoadingMonthsCalendars(true)
+                                        setTimeout(() => {
+                                            setToggleSixMonthCalendar(true)
+                                            setToggleLoadingMonthsCalendars(false)
+                                        }, 1000)
+                                    }}
+                                >
+                                    <Text
+                                        style={{
+                                            color: "#fff",
+                                            fontSize: 20,
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        Show 6 Months
+                                    </Text>
+                                </TouchableOpacity>
+                                {
+                                    toggleLoadingMonthsCalendars && (
+                                        <View
+                                            style={{
+                                                display: "flex",
+                                                width: "100%",
+                                                padding: 10,
+                                                paddingHorizontal: 17,
+                                                flexDirection: "column",
+                                                gap: 10,
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <ActivityIndicator size="large" color="#00ff00" />
+                                            <Text
+                                                style={{
+                                                    color: "#fff",
+                                                    fontSize: 12,
+                                                }}
+                                            >
+                                                Getting 6 months...
+                                            </Text>
+                                        </View>
+                                    )
+                                }
+                            </View>
+                        )
+                    )
             }
             {
                 twelveMonthCalendarAndChart && (
