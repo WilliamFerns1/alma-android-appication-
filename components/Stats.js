@@ -166,85 +166,70 @@ export default function Stats({ route, navigation}) {
         let allMonthsYellow = 0;
         let allMonthsRed = 0;
         let allMonthsDaysFilledIn = 0;
-
-        if (allMonthsData.length < howManyMonths) {
+        if (allMonthsData.length < howManyMonths && 1000) {
             howManyMonths = allMonthsData.length;
         }
-
         for (let i = 0; i < howManyMonths; i++) {
             let currentMonthCalendar;
             let totalGreenDays = 0;
-            let totalYellowdays = 0;
+            let totalYellowDays = 0; // Fixed the typo in the variable name
             let totalRedDays = 0;
             let totalDaysFilledIn = 0;
 
-            // resultArray.unshift({
-            //     monthData: userData.currentMonthCalendar,
-            //     monthAndYear: userData.currentMonthYear,
-            // });
-            // // Output the resulting array
-            // console.log(resultArray);
-            // setAllMonthsData(resultArray);
-
-            //allMonthsData
-            //
-
             if (allMonthsData[i] && allMonthsData[i]['monthData']) {
-                currentMonthCalendar = allMonthsData[i]['monthData']
+                currentMonthCalendar = allMonthsData[i]['monthData'];
 
                 currentMonthCalendar.map((weekObject, weekIndex) => {
-                    for (let i = 0; i < weekObject.week.length; i++) {
+                    for (let j = 0; j < weekObject.week.length; j++) { // Fixed the variable name to avoid conflicts
                         if (
-                            weekObject.week[i]['value'] === 1 ||
-                            weekObject.week[i]['value'] === 2 ||
-                            weekObject.week[i]['value'] === 3
+                            weekObject.week[j]['value'] === 1 ||
+                                weekObject.week[j]['value'] === 2 ||
+                                weekObject.week[j]['value'] === 3
                         ) {
-                            if (weekObject.week[i]['value'] === 1) {
+                            if (weekObject.week[j]['value'] === 1) {
                                 totalGreenDays++;
-                            } else if (weekObject.week[i]['value'] === 2) {
-                                totalYellowdays++;
+                            } else if (weekObject.week[j]['value'] === 2) {
+                                totalYellowDays++; // Fixed the variable name
                             } else {
                                 totalRedDays++;
                             }
                             totalDaysFilledIn++;
-                        }
-                        else {
-                            console.log(`Day ${weekObject.week[i].day} is not filled in yet`)
+                        } else {
+                            console.log(`Day ${weekObject.week[j].day} is not filled in yet`);
                         }
                     }
+                });
 
-                    allMonthsGreen = allMonthsGreen + totalGreenDays
-                    allMonthsYellow = allMonthsYellow + totalYellowdays
-                    allMonthsRed = allMonthsRed + totalRedDays
-                    allMonthsDaysFilledIn = allMonthsDaysFilledIn + totalDaysFilledIn
-                }
-                //formattedDataForPieChart
-                // let totalGreenDays = 0;
-                // let totalYellowdays = 0;
-                // let totalRedDays = 0;
-                // let totalDaysFilledIn = 0;
-                //Calculate the percentages of each color, look at the totalDaysFilledIn to see how many days are filled in
-                // let greenPercentage = (totalGreenDays / totalDaysFilledIn) * 100;
-                // let yellowPercentage = (totalYellowdays / totalDaysFilledIn) * 100;
-                // let redPercentage = (totalRedDays / totalDaysFilledIn) * 100;
-                // formattedDataForPieChart = {
-                //     green: greenPercentage,
-                //     yellow: yellowPercentage,
-                //     red: redPercentage,
-                // }
-                // console.log("formattedDataForPieChart")
-                // console.log(formattedDataForPieChart)
-                // setPieChartData(formattedDataForPieChart)
+                // Update the cumulative totals outside the inner loop
+                allMonthsGreen = allMonthsGreen + totalGreenDays;
+                allMonthsYellow = allMonthsYellow + totalYellowDays;
+                allMonthsRed = allMonthsRed + totalRedDays;
+                allMonthsDaysFilledIn = allMonthsDaysFilledIn + totalDaysFilledIn;
+            }
         }
-    }
+
+        // Calculate percentages and format data for the pie chart
+        const greenPercentage = (allMonthsGreen / allMonthsDaysFilledIn) * 100;
+        const yellowPercentage = (allMonthsYellow / allMonthsDaysFilledIn) * 100;
+        const redPercentage = (allMonthsRed / allMonthsDaysFilledIn) * 100;
+
+        const formattedDataForPieChart = {
+            green: greenPercentage,
+            yellow: yellowPercentage,
+            red: redPercentage,
+        };
+
+        console.log("formattedDataForPieChart");
+        console.log(formattedDataForPieChart);
+        setPieChartData(formattedDataForPieChart);
+}
+
+useEffect(() => {
+    getAllMonthData();
+    }, [userData]);
 
     useEffect(() => {
-        getAllMonthData()
-    }, [userData])
-
-
-    useEffect(() => {
-        calculatePieChartData(1)
+        calculatePieChartData(1);
     }, [allMonthsData]);
 
     const [toggleSixMonthCalendar, setToggleSixMonthCalendar] = useState(false)
@@ -514,6 +499,7 @@ export default function Stats({ route, navigation}) {
                                 setOneMonthCalendarAndChart(true);
                                 setTimeFrameOption("1 Month Stats");
                                 setToggleTimeFramePopup(false)
+                                calculatePieChartData(1);
                             }}
                         >
                             <Text
@@ -542,6 +528,7 @@ export default function Stats({ route, navigation}) {
                                 setThreeMonthCalendarAndChart(true);
                                 setTimeFrameOption("3 Months Stats");
                                 setToggleTimeFramePopup(false)
+                                calculatePieChartData(3);
                             }}
                         >
                             <Text
@@ -569,6 +556,7 @@ export default function Stats({ route, navigation}) {
                                 setSixMonthCalendarAndChart(true);
                                 setTimeFrameOption("6 Months Stats");
                                 setToggleTimeFramePopup(false)
+                                calculatePieChartData(6);
                             }}
                         >
                             <Text
@@ -596,6 +584,7 @@ export default function Stats({ route, navigation}) {
                                 setTwelveMonthCalendarAndChart(true);
                                 setTimeFrameOption("12 Months Stats");
                                 setToggleTimeFramePopup(false)
+                                calculatePieChartData(12);
                             }}
                         >
                             <Text
@@ -623,6 +612,7 @@ export default function Stats({ route, navigation}) {
                                 setAllTimeCalendarAndChart(true);
                                 setTimeFrameOption("All Time Stats");
                                 setToggleTimeFramePopup(false)
+                                calculatePieChartData(1000);
                             }}
                         >
                             <Text
