@@ -125,205 +125,320 @@ export default function Stats({ route, navigation}) {
             setPieChartData(formattedDataForPieChart)
         }
     }, [userData])
-    if (oneMonthCalendarAndChart) {
-        return (
-            <SafeAreaView
+
+
+
+    // Helper function to get month data (replace this with your actual function)
+    function getMonthData(month, year) {
+
+        // previousMonths: firebase.firestore.FieldValue.arrayUnion(
+        //     {
+        //         monthAndYear: currentMonthYearValue,
+        //         monthData: documentSnapshot.data()['currentMonthCalendar'],
+        //     }
+        // ),
+        // currentMonthCalendar: weeksArray,
+        // currentMonthYear: currentMonthYear,
+
+        for (let i = 0; i < userData.previousMonths; i++) {
+            const previousMonthObject = userData.previousMonths[i];
+            if (previousMonthObject.monthAndYear === `${month} ${year}`) {
+
+                console.log(`Month data for ${month}/${year} returned`)
+                return previousMonthObject.monthData;
+            }
+        }
+
+        // Replace this with your logic to get month data based on month and year
+        return `didn't find month data for ${month}/${year}`
+    }
+
+    // Helper function to get formatted month and year
+    function getFormattedMonthAndYear(month, year) {
+        console.log(`Month and year returned: ${month} ${year}`)
+        return `${month} ${year}`;
+    }
+    useEffect(() => {
+        async function getThreeMonthData() {
+            // Get the current date
+            var currentDate = new Date();
+
+            // Create an array to store the result
+            var resultArray = [];
+
+            // Add the current month data
+            resultArray.push({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear
+            });
+
+            if (userData.previousMonths.length >= 3) {
+            // Calculate the previous two months
+                for (var i = 0; i < 2; i++) {
+                    currentDate.setMonth(currentDate.getMonth() - 1);
+
+                    // Adjust the year if needed
+                    if (currentDate.getMonth() === 11) {
+                        currentDate.setFullYear(currentDate.getFullYear() - 1);
+                    }
+
+                    // Add the month data to the result array
+                    resultArray.push({
+                        monthData: getMonthData(currentDate.getMonth(), currentDate.getFullYear()),
+                        monthAndYear: getFormattedMonthAndYear(currentDate.getMonth(), currentDate.getFullYear())
+                    });
+                }
+
+                // Output the resulting array
+                console.log(resultArray);
+            }
+    }, [threeMonthCalendarAndChart])
+
+
+    return (
+        <SafeAreaView
+            style={{
+                display: "flex",
+                width: "100%",
+                minHeight: "100%",
+                paddingTop: 20,
+                paddingBottom: 0,
+                flexDirection: "column",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                backgroundColor: "#030637",
+            }}
+
+        >
+            <View
                 style={{
                     display: "flex",
-                    width: "100%",
-                    minHeight: "100%",
-                    paddingTop: 20,
-                    paddingBottom: 0,
+                    padding: 15,
+                    paddingHorizontal: 17,
                     flexDirection: "column",
-                    justifyContent: "flex-end",
                     alignItems: "center",
-                    backgroundColor: "#030637",
+                    gap: 10,
+                    backgroundColor: "#720455",
+                    borderRadius: 10,
+                    width: "90%",
+                    marginBottom: toggleTimeFramePopup ? 0 : "auto",
                 }}
-
             >
+                <Text
+                    style={{
+                        color: "#fff",
+                        fontSize: 20,
+                        fontWeight: "bold",
+                    }}
+                >
+                    {timeFrameOption}
+                </Text>
+                <View
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: "center",
+                        width: "100%",
+                        gap: 20,
+                        flexDirection: "row",
+                    }}
+                >
+                    {pieChartData && (
+                        <View
+                            style={{
+                                padding: 20,
+                                paddingHorizontal: 0,
+                            }}>
+                            <PieChart
+                                widthAndHeight={130} // Adjust the width and height as needed
+                                series={[
+                                    pieChartData["green"],
+                                    pieChartData["red"],
+                                    pieChartData["yellow"],
+                                ]}
+                                sliceColor={["#66940D", "#81FF06", "#FF0D01"]}
+                            />
+                        </View>
+                    )}
+                    <View
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            gap: 5,
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                fontSize: 13,
+                                color: "#fff",
+                            }}
+                        >
+
+                            {`Green: ${pieChartData['green']?.toFixed(2)}%`}
+                        </Text>
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                fontSize: 13,
+                                color: "#fff",
+                            }}
+                        >
+
+                            {`Yellow: ${pieChartData['yellow']?.toFixed(2)}%`}
+                        </Text>
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                fontSize: 13,
+                                color: "#fff",
+                            }}
+                        >
+
+                            {`Red: ${pieChartData['red']?.toFixed(2)}%`}
+                        </Text>
+                    </View>
+                </View>
                 <View
                     style={{
                         display: "flex",
-                        padding: 15,
-                        paddingHorizontal: 17,
-                        flexDirection: "column",
+                        flexDirection: "row",
+                        width: "100%",
                         alignItems: "center",
-                        gap: 10,
-                        backgroundColor: "#720455",
-                        borderRadius: 10,
-                        width: "90%",
-                        marginBottom: toggleTimeFramePopup ? 0 : "auto",
+                        justifyContent: "space-between",
+                        flexWrap: "wrap",
                     }}
                 >
-                    <Text
-                        style={{
-                            color: "#fff",
-                            fontSize: 20,
-                            fontWeight: "bold",
-                        }}
-                    >
-                        {timeFrameOption}
-                    </Text>
                     <View
                         style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: "center",
-                            width: "100%",
-                            gap: 20,
+                            display: "flex",
                             flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 10,
                         }}
                     >
-                        {pieChartData && (
-                            <View
-                                style={{
-                                    padding: 20,
-                                    paddingHorizontal: 0,
-                                }}>
-                                <PieChart
-                                    widthAndHeight={130} // Adjust the width and height as needed
-                                    series={[
-                                        pieChartData["green"],
-                                        pieChartData["red"],
-                                        pieChartData["yellow"],
-                                    ]}
-                                    sliceColor={["#66940D", "#81FF06", "#FF0D01"]}
-                                />
-                            </View>
-                        )}
                         <View
                             style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "center",
-                                gap: 5,
+                                width: 30,
+                                height: 30,
+                                borderRadius: 4,
+                                backgroundColor:"#66940D"
+                            }}
+                        />
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                color: "#fff",
                             }}
                         >
-                            <Text
-                                style={{
-                                    fontWeight: "bold",
-                                    fontSize: 13,
-                                    color: "#fff",
-                                }}
-                            >
-
-                                {`Green: ${pieChartData['green'].toFixed(2)}%`}
-                            </Text>
-                            <Text
-                                style={{
-                                    fontWeight: "bold",
-                                    fontSize: 13,
-                                    color: "#fff",
-                                }}
-                            >
-
-                                {`Yellow: ${pieChartData['yellow'].toFixed(2)}%`}
-                            </Text>
-                            <Text
-                                style={{
-                                    fontWeight: "bold",
-                                    fontSize: 13,
-                                    color: "#fff",
-                                }}
-                            >
-
-                                {`Red: ${pieChartData['red'].toFixed(2)}%`}
-                            </Text>
-                        </View>
+                            Happy
+                        </Text>
                     </View>
                     <View
                         style={{
                             display: "flex",
                             flexDirection: "row",
-                            width: "100%",
                             alignItems: "center",
-                            justifyContent: "space-between",
-                            flexWrap: "wrap",
+                            justifyContent: "center",
+                            gap: 10,
                         }}
                     >
                         <View
                             style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                gap: 10,
+                                width: 30,
+                                height: 30,
+                                borderRadius: 4,
+                                backgroundColor:"#81FF06"
                             }}
-                        >
-                            <View
-                                style={{
-                                    width: 30,
-                                    height: 30,
-                                    borderRadius: 4,
-                                    backgroundColor:"#66940D"
-                                }}
-                            />
-                            <Text
-                                style={{
-                                    fontWeight: "bold",
-                                    color: "#fff",
-                                }}
-                            >
-                                Happy
-                            </Text>
-                        </View>
-                        <View
+                        />
+                        <Text
                             style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                gap: 10,
+                                fontWeight: "bold",
+                                color: "#fff",
                             }}
                         >
-                            <View
-                                style={{
-                                    width: 30,
-                                    height: 30,
-                                    borderRadius: 4,
-                                    backgroundColor:"#81FF06"
-                                }}
-                            />
-                            <Text
-                                style={{
-                                    fontWeight: "bold",
-                                    color: "#fff",
-                                }}
-                            >
-                                Fine
-                            </Text>
-                        </View>
-                        <View
-                            style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                gap: 10,
-                            }}
-                        >
-                            <View
-                                style={{
-                                    width: 30,
-                                    height: 30,
-                                    borderRadius: 4,
-                                    backgroundColor:"#FF0D01",
-                                }}
-                            />
-                            <Text
-                                style={{
-                                    fontWeight: "bold",
-                                    color: "#fff",
-                                }}
-                            >
-                               Bad Day
-                            </Text>
-                        </View>
+                            Fine
+                        </Text>
                     </View>
                     <View
                         style={{
-                            marginTop: 10,
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 10,
+                        }}
+                    >
+                        <View
+                            style={{
+                                width: 30,
+                                height: 30,
+                                borderRadius: 4,
+                                backgroundColor:"#FF0D01",
+                            }}
+                        />
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                color: "#fff",
+                            }}
+                        >
+                           Bad Day
+                        </Text>
+                    </View>
+                </View>
+                <View
+                    style={{
+                        marginTop: 10,
+                        width: "100%",
+                    }}
+                >
+                    <TouchableOpacity
+                        style={{
+                            display: "flex",
                             width: "100%",
+                            padding: 10,
+                            paddingHorizontal: 17,
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            borderRadius: 10,
+                            backgroundColor: "#9949FF",
+                        }}
+                        onPress={() => {
+                            setToggleTimeFramePopup(!toggleTimeFramePopup);
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: "#fff",
+                                fontSize: 20,
+                                fontWeight: "bold",
+                            }}
+                        >
+                            Select Time Frame
+                        </Text>
+                        <Image
+                            source={toggleTimeFramePopup ? require('../assets/CloseIcon.png') : require("../assets/down-icon.png")}
+                        />
+                    </TouchableOpacity>
+                </View>
+            </View>
+            {
+                toggleTimeFramePopup ? (
+                    <View
+                        style={{
+                            display: "flex",
+                            width: "100%",
+                            padding: 8,
+                            paddingHorizontal: 18,
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 10,
+                            backgroundColor: "rgba(4, 6, 55, 0.95)",
                         }}
                     >
                         <TouchableOpacity
@@ -331,256 +446,239 @@ export default function Stats({ route, navigation}) {
                                 display: "flex",
                                 width: "100%",
                                 padding: 10,
-                                paddingHorizontal: 17,
-                                flexDirection: "row",
-                                justifyContent: "space-between",
                                 alignItems: "center",
-                                borderRadius: 10,
-                                backgroundColor: "#9949FF",
+                                borderWidth: 1,
+                                borderColor: "#9949FF",
+                                backgroundColor: "rgba(114, 4, 85, 0.88)",
+                                borderRadius: 5,
                             }}
                             onPress={() => {
-                                setToggleTimeFramePopup(!toggleTimeFramePopup);
+                                untoggleAllTimeCalendarAndChart();
+                                setOneMonthCalendarAndChart(true);
+                                setTimeFrameOption("1 Month Stats");
+                                setToggleTimeFramePopup(false)
                             }}
                         >
                             <Text
                                 style={{
                                     color: "#fff",
-                                    fontSize: 20,
                                     fontWeight: "bold",
                                 }}
                             >
-                                Select Time Frame
+                                1 Month
                             </Text>
-                            <Image
-                                source={toggleTimeFramePopup ? require('../assets/CloseIcon.png') : require("../assets/down-icon.png")}
-                            />
                         </TouchableOpacity>
-                    </View>
-                </View>
-                {
-                    toggleTimeFramePopup ? (
-                        <View
+
+                        <TouchableOpacity
                             style={{
                                 display: "flex",
                                 width: "100%",
-                                padding: 8,
-                                paddingHorizontal: 18,
-                                flexDirection: "column",
+                                padding: 10,
                                 alignItems: "center",
-                                justifyContent: "center",
-                                gap: 10,
-                                backgroundColor: "rgba(4, 6, 55, 0.95)",
+                                borderWidth: 1,
+                                borderColor: "#9949FF",
+                                backgroundColor: "rgba(114, 4, 85, 0.88)",
+                                borderRadius: 5,
+                            }}
+                            onPress={() => {
+                                untoggleAllTimeCalendarAndChart();
+                                setThreeMonthCalendarAndChart(true);
+                                setTimeFrameOption("3 Months Stats");
+                                setToggleTimeFramePopup(false)
                             }}
                         >
-                            <TouchableOpacity
+                            <Text
                                 style={{
-                                    display: "flex",
-                                    width: "100%",
-                                    padding: 10,
-                                    alignItems: "center",
-                                    borderWidth: 1,
-                                    borderColor: "#9949FF",
-                                    backgroundColor: "rgba(114, 4, 85, 0.88)",
-                                    borderRadius: 5,
-                                }}
-                                onPress={() => {
-                                    untoggleAllTimeCalendarAndChart();
-                                    setOneMonthCalendarAndChart(true);
-                                    setTimeFrameOption("1 Month Stats");
-                                    setToggleTimeFramePopup(false)
+                                    color: "#fff",
+                                    fontWeight: "bold",
                                 }}
                             >
-                                <Text
-                                    style={{
-                                        color: "#fff",
-                                        fontWeight: "bold",
-                                    }}
-                                >
-                                    1 Month
-                                </Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity
+                                3 Months
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{
+                                display: "flex",
+                                width: "100%",
+                                padding: 10,
+                                alignItems: "center",
+                                borderWidth: 1,
+                                borderColor: "#9949FF",
+                                backgroundColor: "rgba(114, 4, 85, 0.88)",
+                                borderRadius: 5,
+                            }}
+                            onPress={() => {
+                                untoggleAllTimeCalendarAndChart();
+                                setSixMonthCalendarAndChart(true);
+                                setTimeFrameOption("6 Months Stats");
+                                setToggleTimeFramePopup(false)
+                            }}
+                        >
+                            <Text
                                 style={{
-                                    display: "flex",
-                                    width: "100%",
-                                    padding: 10,
-                                    alignItems: "center",
-                                    borderWidth: 1,
-                                    borderColor: "#9949FF",
-                                    backgroundColor: "rgba(114, 4, 85, 0.88)",
-                                    borderRadius: 5,
-                                }}
-                                onPress={() => {
-                                    untoggleAllTimeCalendarAndChart();
-                                    setThreeMonthCalendarAndChart(true);
-                                    setTimeFrameOption("3 Months Stats");
-                                    setToggleTimeFramePopup(false)
+                                    color: "#fff",
+                                    fontWeight: "bold",
                                 }}
                             >
-                                <Text
-                                    style={{
-                                        color: "#fff",
-                                        fontWeight: "bold",
-                                    }}
-                                >
-                                    3 Months
-                                </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
+                                6 Months
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{
+                                display: "flex",
+                                width: "100%",
+                                padding: 10,
+                                alignItems: "center",
+                                borderWidth: 1,
+                                borderColor: "#9949FF",
+                                backgroundColor: "rgba(114, 4, 85, 0.88)",
+                                borderRadius: 5,
+                            }}
+                            onPress={() => {
+                                untoggleAllTimeCalendarAndChart();
+                                setTwelveMonthCalendarAndChart(true);
+                                setTimeFrameOption("12 Months Stats");
+                                setToggleTimeFramePopup(false)
+                            }}
+                        >
+                            <Text
                                 style={{
-                                    display: "flex",
-                                    width: "100%",
-                                    padding: 10,
-                                    alignItems: "center",
-                                    borderWidth: 1,
-                                    borderColor: "#9949FF",
-                                    backgroundColor: "rgba(114, 4, 85, 0.88)",
-                                    borderRadius: 5,
-                                }}
-                                onPress={() => {
-                                    untoggleAllTimeCalendarAndChart();
-                                    setSixMonthCalendarAndChart(true);
-                                    setTimeFrameOption("6 Months Stats");
-                                    setToggleTimeFramePopup(false)
+                                    color: "#fff",
+                                    fontWeight: "bold",
                                 }}
                             >
-                                <Text
-                                    style={{
-                                        color: "#fff",
-                                        fontWeight: "bold",
-                                    }}
-                                >
-                                    6 Months
-                                </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
+                                12 Months
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{
+                                display: "flex",
+                                width: "100%",
+                                padding: 10,
+                                alignItems: "center",
+                                borderWidth: 1,
+                                borderColor: "#9949FF",
+                                backgroundColor: "rgba(114, 4, 85, 0.88)",
+                                borderRadius: 5,
+                            }}
+                            onPress={() => {
+                                untoggleAllTimeCalendarAndChart();
+                                setAllTimeCalendarAndChart(true);
+                                setTimeFrameOption("All Time Stats");
+                                setToggleTimeFramePopup(false)
+                            }}
+                        >
+                            <Text
                                 style={{
-                                    display: "flex",
-                                    width: "100%",
-                                    padding: 10,
-                                    alignItems: "center",
-                                    borderWidth: 1,
-                                    borderColor: "#9949FF",
-                                    backgroundColor: "rgba(114, 4, 85, 0.88)",
-                                    borderRadius: 5,
-                                }}
-                                onPress={() => {
-                                    untoggleAllTimeCalendarAndChart();
-                                    setTwelveMonthCalendarAndChart(true);
-                                    setTimeFrameOption("12 Months Stats");
-                                    setToggleTimeFramePopup(false)
+                                    color: "#fff",
+                                    fontWeight: "bold",
                                 }}
                             >
-                                <Text
-                                    style={{
-                                        color: "#fff",
-                                        fontWeight: "bold",
-                                    }}
-                                >
-                                    12 Months
-                                </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
+                               All Time
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : (
+                        (oneMonthCalendarAndChart && userData?.currentMonthCalendar) && userData?.currentMonthCalendar.map((weekArray, index) => (
+                            <View
                                 style={{
-                                    display: "flex",
                                     width: "100%",
-                                    padding: 10,
+                                    marginBottom: "auto",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    flexWrap: "wrap",
+                                    justifyContent: "space-between",
                                     alignItems: "center",
-                                    borderWidth: 1,
-                                    borderColor: "#9949FF",
-                                    backgroundColor: "rgba(114, 4, 85, 0.88)",
-                                    borderRadius: 5,
-                                }}
-                                onPress={() => {
-                                    untoggleAllTimeCalendarAndChart();
-                                    setAllTimeCalendarAndChart(true);
-                                    setTimeFrameOption("All Time Stats");
-                                    setToggleTimeFramePopup(false)
+                                    justifyContent: "center",
+                                    gap: 10
                                 }}
                             >
-                                <Text
-                                    style={{
-                                        color: "#fff",
-                                        fontWeight: "bold",
-                                    }}
-                                >
-                                   All Time
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    ) : (
-                            (userData?.currentMonthCalendar ?? []).map((weekArray, index) => (
                                 <View
+                                    key={index}
                                     style={{
-                                        width: "100%",
-                                        marginBottom: "auto",
+                                        width: "90%",
                                         display: "flex",
                                         flexDirection: "row",
-                                        flexWrap: "wrap",
-                                        justifyContent: "space-between",
+                                        justifyContent: index === userData.currentMonthCalendar.length - 1 ? "flex-start" : "space-between",
                                         alignItems: "center",
-                                        justifyContent: "center",
-                                        gap: 10
+                                        alignSelf: "stretch",
                                     }}
                                 >
-                                    <View
-                                        key={index}
-                                        style={{
-                                            width: "90%",
-                                            display: "flex",
-                                            flexDirection: "row",
-                                            justifyContent: index === userData.currentMonthCalendar.length - 1 ? "flex-start" : "space-between",
-                                            alignItems: "center",
-                                            alignSelf: "stretch",
-                                        }}
-                                    >
-                                        {weekArray.week.map((day, dayIndex) => (
-                                            <TouchableOpacity
-                                                key={dayIndex}
+                                    {weekArray.week.map((day, dayIndex) => (
+                                        <TouchableOpacity
+                                            key={dayIndex}
+                                            style={{
+                                                display: "flex",
+                                                paddingHorizontal: 10,
+                                                paddingVertical: 10,
+                                                borderRadius: 4,
+                                                width: "13%",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                                backgroundColor: day.value === 0 ? "#464646" : day.value === 1 ? "green" : day.value === 2 ? "yellow" : "red",
+                                                marginRight: index === userData.currentMonthCalendar.length - 1 ? "1.28%" : 0,
+                                            }}
+                                            onPress={() => {
+                                                navigation.navigate('ChangeMood', {
+                                                    day: day.day,
+                                                    monthAndYear: userData['currentMonthYear'],
+                                                    setReloadPage: setReloadPage,
+                                                });
+                                            }}
+                                        >
+                                            <Text
                                                 style={{
-                                                    display: "flex",
-                                                    paddingHorizontal: 10,
-                                                    paddingVertical: 10,
-                                                    borderRadius: 4,
-                                                    width: "13%",
-                                                    justifyContent: "center",
-                                                    alignItems: "center",
-                                                    backgroundColor: day.value === 0 ? "#464646" : day.value === 1 ? "green" : day.value === 2 ? "yellow" : "red",
-                                                    marginRight: index === userData.currentMonthCalendar.length - 1 ? "1.28%" : 0,
-                                                }}
-                                                onPress={() => {
-                                                    navigation.navigate('ChangeMood', {
-                                                        day: day.day,
-                                                        monthAndYear: userData['currentMonthYear'],
-                                                        setReloadPage: setReloadPage,
-                                                    });
+                                                    textAlign: "center",
+                                                    color: day.value === 2 ? "black" : "#fff",
+                                                    fontWeight: 'bold',
                                                 }}
                                             >
-                                                <Text
-                                                    style={{
-                                                        textAlign: "center",
-                                                        color: day.value === 2 ? "black" : "#fff",
-                                                        fontWeight: 'bold',
-                                                    }}
-                                                >
-                                                    {day.day}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        ))}
-                                    </View>
+                                                {day.day}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    ))}
                                 </View>
-                            ))
-                        )
-                }
-                <View
-                    style={{
-                        width: "100%",
-                    }}
-                >
-                    <BottomNavBar />
-                </View>
-            </SafeAreaView>
-        )
-    }
+                            </View>
+                        ))
+                    )
+            }
+
+    {/* const [allTimeCalendarAndChart, setAllTimeCalendarAndChart ] = useState(false); */}
+            {
+                threeMonthCalendarAndChart && (
+                    <View>
+                        <Text>Three Months</Text>
+                    </View>
+                )
+            }
+            {
+                sixMonthCalendarAndChart && (
+                    <View>
+                        <Text>Six Months</Text>
+                    </View>
+                )
+            }
+            {
+                twelveMonthCalendarAndChart && (
+                    <View>
+                        <Text>12 Months</Text>
+                    </View>
+                )
+            }
+            {
+                allTimeCalendarAndChart  && (
+                    <View>
+                        <Text>All Time</Text>
+                    </View>
+                )
+            }
+            <View
+                style={{
+                    width: "100%",
+                }}
+            >
+                <BottomNavBar />
+            </View>
+        </SafeAreaView>
+    )
 }
