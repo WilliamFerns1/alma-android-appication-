@@ -72,153 +72,180 @@ export default function Stats({ route, navigation}) {
         console.error("Error getting document:", error);
       }
     }
-
-    let currentMonthCalendar;
-    let formattedDataForPieChart;
-    let totalGreenDays = 0;
-    let totalYellowdays = 0;
-    let totalRedDays = 0;
-    let totalDaysFilledIn = 0;
-
     useEffect(() => {
         getUserData(db, collectionName, documentID)
     }, [])
 
-    useEffect(() => {
-        if (userData && userData['currentMonthCalendar']) {
-            currentMonthCalendar = userData['currentMonthCalendar']
 
-            currentMonthCalendar.map((weekObject, weekIndex) => {
-                for (let i = 0; i < weekObject.week.length; i++) {
-                    if (
-                        weekObject.week[i]['value'] === 1 ||
-                        weekObject.week[i]['value'] === 2 ||
-                        weekObject.week[i]['value'] === 3
-                    ) {
-                        if (weekObject.week[i]['value'] === 1) {
-                            totalGreenDays++;
-                        } else if (weekObject.week[i]['value'] === 2) {
-                            totalYellowdays++;
-                        } else {
-                            totalRedDays++;
-                        }
-                        totalDaysFilledIn++;
-                    }
-                    else {
-                        console.log(`Day ${weekObject.week[i].day} is not filled in yet`)
-                    }
-                }
-            })
-            //formattedDataForPieChart
-            // let totalGreenDays = 0;
-            // let totalYellowdays = 0;
-            // let totalRedDays = 0;
-            // let totalDaysFilledIn = 0;
-            //Calculate the percentages of each color, look at the totalDaysFilledIn to see how many days are filled in
-            let greenPercentage = (totalGreenDays / totalDaysFilledIn) * 100;
-            let yellowPercentage = (totalYellowdays / totalDaysFilledIn) * 100;
-            let redPercentage = (totalRedDays / totalDaysFilledIn) * 100;
-            formattedDataForPieChart = {
-                green: greenPercentage,
-                yellow: yellowPercentage,
-                red: redPercentage,
-            }
-            console.log("formattedDataForPieChart")
-            console.log(formattedDataForPieChart)
-            setPieChartData(formattedDataForPieChart)
+    async function getAllMonthData() {
+        // Get the current date
+        var currentDate = new Date();
+
+        // Create an array to store the result
+        var resultArray = [];
+        if (userData.previousMonths && userData.previousMonths.length !== 0) {
+            resultArray = userData.previousMonths.reverse();
         }
+
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Make all month data 3 months just for dummy testing
+        resultArray.unshift({
+            monthData: userData.currentMonthCalendar,
+            monthAndYear: userData.currentMonthYear,
+        });
+        // Output the resulting array
+        console.log(resultArray);
+        setAllMonthsData(resultArray);
+    }
+    function calculatePieChartData(howManyMonths) {
+        let allMonthsGreen = 0;
+        let allMonthsYellow = 0;
+        let allMonthsRed = 0;
+        let allMonthsDaysFilledIn = 0;
+
+        if (allMonthsData.length < howManyMonths) {
+            howManyMonths = allMonthsData.length;
+        }
+
+        for (let i = 0; i < howManyMonths; i++) {
+            let currentMonthCalendar;
+            let totalGreenDays = 0;
+            let totalYellowdays = 0;
+            let totalRedDays = 0;
+            let totalDaysFilledIn = 0;
+
+            // resultArray.unshift({
+            //     monthData: userData.currentMonthCalendar,
+            //     monthAndYear: userData.currentMonthYear,
+            // });
+            // // Output the resulting array
+            // console.log(resultArray);
+            // setAllMonthsData(resultArray);
+
+            //allMonthsData
+            //
+
+            if (allMonthsData[i] && allMonthsData[i]['monthData']) {
+                currentMonthCalendar = allMonthsData[i]['monthData']
+
+                currentMonthCalendar.map((weekObject, weekIndex) => {
+                    for (let i = 0; i < weekObject.week.length; i++) {
+                        if (
+                            weekObject.week[i]['value'] === 1 ||
+                            weekObject.week[i]['value'] === 2 ||
+                            weekObject.week[i]['value'] === 3
+                        ) {
+                            if (weekObject.week[i]['value'] === 1) {
+                                totalGreenDays++;
+                            } else if (weekObject.week[i]['value'] === 2) {
+                                totalYellowdays++;
+                            } else {
+                                totalRedDays++;
+                            }
+                            totalDaysFilledIn++;
+                        }
+                        else {
+                            console.log(`Day ${weekObject.week[i].day} is not filled in yet`)
+                        }
+                    }
+
+                    allMonthsGreen = allMonthsGreen + totalGreenDays
+                    allMonthsYellow = allMonthsYellow + totalYellowdays
+                    allMonthsRed = allMonthsRed + totalRedDays
+                    allMonthsDaysFilledIn = allMonthsDaysFilledIn + totalDaysFilledIn
+                }
+                //formattedDataForPieChart
+                // let totalGreenDays = 0;
+                // let totalYellowdays = 0;
+                // let totalRedDays = 0;
+                // let totalDaysFilledIn = 0;
+                //Calculate the percentages of each color, look at the totalDaysFilledIn to see how many days are filled in
+                // let greenPercentage = (totalGreenDays / totalDaysFilledIn) * 100;
+                // let yellowPercentage = (totalYellowdays / totalDaysFilledIn) * 100;
+                // let redPercentage = (totalRedDays / totalDaysFilledIn) * 100;
+                // formattedDataForPieChart = {
+                //     green: greenPercentage,
+                //     yellow: yellowPercentage,
+                //     red: redPercentage,
+                // }
+                // console.log("formattedDataForPieChart")
+                // console.log(formattedDataForPieChart)
+                // setPieChartData(formattedDataForPieChart)
+        }
+    }
+
+    useEffect(() => {
+        getAllMonthData()
     }, [userData])
 
 
     useEffect(() => {
-        async function getAllMonthData() {
-            // Get the current date
-            var currentDate = new Date();
-
-            // Create an array to store the result
-            var resultArray = [];
-            if (userData.previousMonths && userData.previousMonths.length !== 0) {
-                resultArray = userData.previousMonths.reverse();
-            }
-
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Make all month data 3 months just for dummy testing
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            // Output the resulting array
-            console.log(resultArray);
-            setAllMonthsData(resultArray);
-        }
-
-        getAllMonthData();
-    }, [userData]);
-
+        calculatePieChartData(1)
+    }, [allMonthsData]);
 
     const [toggleSixMonthCalendar, setToggleSixMonthCalendar] = useState(false)
     const [toggleTwelveMonthCalendar, setToggleTwelveMonthCalendar] = useState(false)
