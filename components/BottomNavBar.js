@@ -248,7 +248,7 @@ export default function BottomNavBar(props) {
                             onPress={async () => {
                                 try {
                                     signOut();
-                                    navigation.navigate('SignIn');
+                                    navigation.navigate('Starter');
                                 } catch (error) {
                                     console.error('Error clearing local storage:', error);
                                 }

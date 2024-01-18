@@ -92,71 +92,6 @@ export default function Stats({ route, navigation}) {
             monthData: userData.currentMonthCalendar,
             monthAndYear: userData.currentMonthYear,
         });
-        // Make all month data 3 months just for dummy testing
-        resultArray.unshift({
-            monthData: userData.currentMonthCalendar,
-            monthAndYear: userData.currentMonthYear,
-        });
-        // Make all month data 3 months just for dummy testing
-        resultArray.unshift({
-            monthData: userData.currentMonthCalendar,
-            monthAndYear: userData.currentMonthYear,
-        });
-        // Make all month data 3 months just for dummy testing
-        resultArray.unshift({
-            monthData: userData.currentMonthCalendar,
-            monthAndYear: userData.currentMonthYear,
-        });
-        // Make all month data 3 months just for dummy testing
-        resultArray.unshift({
-            monthData: userData.currentMonthCalendar,
-            monthAndYear: userData.currentMonthYear,
-        });
-        // Make all month data 3 months just for dummy testing
-        resultArray.unshift({
-            monthData: userData.currentMonthCalendar,
-            monthAndYear: userData.currentMonthYear,
-        });
-        // Make all month data 3 months just for dummy testing
-        resultArray.unshift({
-            monthData: userData.currentMonthCalendar,
-            monthAndYear: userData.currentMonthYear,
-        });
-        // Make all month data 3 months just for dummy testing
-        resultArray.unshift({
-            monthData: userData.currentMonthCalendar,
-            monthAndYear: userData.currentMonthYear,
-        });
-        // Make all month data 3 months just for dummy testing
-        resultArray.unshift({
-            monthData: userData.currentMonthCalendar,
-            monthAndYear: userData.currentMonthYear,
-        });
-        // Make all month data 3 months just for dummy testing
-        resultArray.unshift({
-            monthData: userData.currentMonthCalendar,
-            monthAndYear: userData.currentMonthYear,
-        });
-        // Make all month data 3 months just for dummy testing
-        resultArray.unshift({
-            monthData: userData.currentMonthCalendar,
-            monthAndYear: userData.currentMonthYear,
-        });
-        // Make all month data 3 months just for dummy testing
-        resultArray.unshift({
-            monthData: userData.currentMonthCalendar,
-            monthAndYear: userData.currentMonthYear,
-        });
-        // Make all month data 3 months just for dummy testing
-        resultArray.unshift({
-            monthData: userData.currentMonthCalendar,
-            monthAndYear: userData.currentMonthYear,
-        });
-        // Make all month data 3 months just for dummy testing
-        resultArray.unshift({
-            monthData: userData.currentMonthCalendar,
-            monthAndYear: userData.currentMonthYear,
-        });
         // Output the resulting array
         console.log(resultArray);
         setAllMonthsData(resultArray);
@@ -295,8 +230,8 @@ useEffect(() => {
                                 widthAndHeight={130} // Adjust the width and height as needed
                                 series={[
                                     pieChartData["green"],
-                                    pieChartData["red"],
                                     pieChartData["yellow"],
+                                    pieChartData["red"],
                                 ]}
                                 sliceColor={["#66940D", "#81FF06", "#FF0D01"]}
                             />
