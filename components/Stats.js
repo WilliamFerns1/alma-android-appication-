@@ -55,8 +55,7 @@ export default function Stats({ route, navigation}) {
     async function getUserData(db, collectionName, documentID) {
         try {
         // Check if the document ID is null or undefined
-        if (!documentID) {
-          console.log("Document ID is null or undefined.");
+        if (!documentID) { console.log("Document ID is null or undefined.");
           return;
         }
         const collectionRef = collection(db, collectionName);
@@ -686,7 +685,7 @@ export default function Stats({ route, navigation}) {
                                 }}
                             >
                                 {weekArray.week.map((day, dayIndex) => (
-                                    <TouchableOpacity
+                                    <View
                                         key={dayIndex}
                                         style={{
                                             display: "flex",
@@ -699,13 +698,6 @@ export default function Stats({ route, navigation}) {
                                             backgroundColor: day.value === 0 ? "#464646" : day.value === 1 ? "green" : day.value === 2 ? "yellow" : "red",
                                             marginRight: index === userData.currentMonthCalendar.length - 1 ? "1.28%" : 0,
                                         }}
-                                        onPress={() => {
-                                            navigation.navigate('ChangeMood', {
-                                                day: day.day,
-                                                monthAndYear: userData['currentMonthYear'],
-                                                setReloadPage: setReloadPage,
-                                            });
-                                        }}
                                     >
                                         <Text
                                             style={{
@@ -716,7 +708,7 @@ export default function Stats({ route, navigation}) {
                                         >
                                             {day.day}
                                         </Text>
-                                    </TouchableOpacity>
+                                    </View>
                                 ))}
                             </View>
                         ))}
@@ -929,7 +921,7 @@ export default function Stats({ route, navigation}) {
                                         }}
                                     >
                                         {weekArray.week.map((day, dayIndex) => (
-                                            <TouchableOpacity
+                                            <View
                                                 key={dayIndex}
                                                 style={{
                                                     display: "flex",
@@ -943,13 +935,6 @@ export default function Stats({ route, navigation}) {
                                                     marginRight: index === month.monthData.length - 1 ? "1.28%" : 0,
                                                 }}
 
-                                                onPress={() => {
-                                                    navigation.navigate('ChangeMood', {
-                                                        day: day.day,
-                                                        monthAndYear: month.monthAndYear, // Assuming the month object has the monthAndYear property
-                                                        setReloadPage: setReloadPage,
-                                                    });
-                                                }}
                                             >
                                                 <Text
                                                     style={{
@@ -961,7 +946,7 @@ export default function Stats({ route, navigation}) {
                                                 >
                                                     {day.day}
                                                 </Text>
-                                            </TouchableOpacity>
+                                            </View>
                                         ))}
                                     </View>
                                 ))}
@@ -1201,7 +1186,7 @@ export default function Stats({ route, navigation}) {
                                             }}
                                         >
                                             {weekArray.week.map((day, dayIndex) => (
-                                                <TouchableOpacity
+                                                <View
                                                     key={dayIndex}
                                                     style={{
                                                         display: "flex",
@@ -1214,14 +1199,6 @@ export default function Stats({ route, navigation}) {
                                                         backgroundColor: day.value === 0 ? "#464646" : day.value === 1 ? "green" : day.value === 2 ? "yellow" : "red",
                                                         marginRight: index === month.monthData.length - 1 ? "1.28%" : 0,
                                                     }}
-
-                                                    onPress={() => {
-                                                        navigation.navigate('ChangeMood', {
-                                                            day: day.day,
-                                                            monthAndYear: month.monthAndYear, // Assuming the month object has the monthAndYear property
-                                                            setReloadPage: setReloadPage,
-                                                        });
-                                                    }}
                                                 >
                                                     <Text
                                                         style={{
@@ -1233,7 +1210,7 @@ export default function Stats({ route, navigation}) {
                                                     >
                                                         {day.day}
                                                     </Text>
-                                                </TouchableOpacity>
+                                                </View>
                                             ))}
                                         </View>
                                     ))}
@@ -1546,7 +1523,7 @@ export default function Stats({ route, navigation}) {
                                             }}
                                         >
                                             {weekArray.week.map((day, dayIndex) => (
-                                                <TouchableOpacity
+                                                <View
                                                     key={dayIndex}
                                                     style={{
                                                         display: "flex",
@@ -1559,14 +1536,6 @@ export default function Stats({ route, navigation}) {
                                                         backgroundColor: day.value === 0 ? "#464646" : day.value === 1 ? "green" : day.value === 2 ? "yellow" : "red",
                                                         marginRight: index === month.monthData.length - 1 ? "1.28%" : 0,
                                                     }}
-
-                                                    onPress={() => {
-                                                        navigation.navigate('ChangeMood', {
-                                                            day: day.day,
-                                                            monthAndYear: month.monthAndYear, // Assuming the month object has the monthAndYear property
-                                                            setReloadPage: setReloadPage,
-                                                        });
-                                                    }}
                                                 >
                                                     <Text
                                                         style={{
@@ -1578,7 +1547,7 @@ export default function Stats({ route, navigation}) {
                                                     >
                                                         {day.day}
                                                     </Text>
-                                                </TouchableOpacity>
+                                                </View>
                                             ))}
                                         </View>
                                     ))}
@@ -1891,7 +1860,7 @@ export default function Stats({ route, navigation}) {
                                             }}
                                         >
                                             {weekArray.week.map((day, dayIndex) => (
-                                                <TouchableOpacity
+                                                <View
                                                     key={dayIndex}
                                                     style={{
                                                         display: "flex",
@@ -1904,14 +1873,6 @@ export default function Stats({ route, navigation}) {
                                                         backgroundColor: day.value === 0 ? "#464646" : day.value === 1 ? "green" : day.value === 2 ? "yellow" : "red",
                                                         marginRight: index === month.monthData.length - 1 ? "1.28%" : 0,
                                                     }}
-
-                                                    onPress={() => {
-                                                        navigation.navigate('ChangeMood', {
-                                                            day: day.day,
-                                                            monthAndYear: month.monthAndYear, // Assuming the month object has the monthAndYear property
-                                                            setReloadPage: setReloadPage,
-                                                        });
-                                                    }}
                                                 >
                                                     <Text
                                                         style={{
@@ -1923,7 +1884,7 @@ export default function Stats({ route, navigation}) {
                                                     >
                                                         {day.day}
                                                     </Text>
-                                                </TouchableOpacity>
+                                                </View>
                                             ))}
                                         </View>
                                     ))}
