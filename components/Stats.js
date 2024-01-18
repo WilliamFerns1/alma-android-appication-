@@ -146,54 +146,6 @@ export default function Stats({ route, navigation}) {
                 monthData: userData.currentMonthCalendar,
                 monthAndYear: userData.currentMonthYear,
             });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
             // Output the resulting array
             console.log(resultArray);
             setAllMonthsData(resultArray);
@@ -844,10 +796,8 @@ export default function Stats({ route, navigation}) {
                         </View>
                     )
             }
-
-    {/* const [allTimeCalendarAndChart, setAllTimeCalendarAndChart ] = useState(false); */}
             {
-                (allMonthsData.length === 1 && threeMonthCalendarAndChart && userData?.currentMonthCalendar) && (
+                (allMonthsData.length === 1 && threeMonthCalendarAndChart && userData?.currentMonthCalendar) && !toggleTimeFramePopup && (
                     <View
                         style={{
                             width: "100%",
@@ -857,9 +807,153 @@ export default function Stats({ route, navigation}) {
                             flexWrap: "wrap",
                             justifyContent: "center",
                             alignItems: "center",
-                            gap: 10
+                            gap: 5
                         }}
                     >
+                        <View
+                            style={{
+                                width: "90%",
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
+                            <View
+                                style={{
+                                    display: "flex",
+                                    width: "13%",
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 10,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        color: "#fff",
+                                        fontWeight: "bold",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    S
+                                </Text>
+                            </View>
+                            <View
+                                style={{
+                                    display: "flex",
+                                    width: "13%",
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 10,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        color: "#fff",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    M
+                                </Text>
+                            </View>
+                            <View
+                                style={{
+                                    display: "flex",
+                                    width: "13%",
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 10,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        color: "#fff",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    T
+                                </Text>
+                            </View>
+                            <View
+                                style={{
+                                    display: "flex",
+                                    width: "13%",
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 10,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        color: "#fff",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    W
+                                </Text>
+                            </View>
+                            <View
+                                style={{
+                                    display: "flex",
+                                    width: "13%",
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 10,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        color: "#fff",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    T
+                                </Text>
+                            </View>
+                            <View
+                                style={{
+                                    display: "flex",
+                                    width: "13%",
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 10,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        color: "#fff",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    F
+                                </Text>
+                            </View>
+                            <View
+                                style={{
+                                    display: "flex",
+                                    width: "13%",
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 10,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        color: "#fff",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    S
+                                </Text>
+                            </View>
+                        </View>
                         {userData.currentMonthCalendar.map((weekArray, index) => (
                             <View
                                 key={index}
@@ -900,6 +994,15 @@ export default function Stats({ route, navigation}) {
                                 ))}
                             </View>
                         ))}
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                color: "#fff",
+                                width: "90%",
+                            }}
+                        >
+                            {userData.currentMonthYear}
+                        </Text>
                     </View>
                 )
             }
@@ -1140,6 +1243,15 @@ export default function Stats({ route, navigation}) {
                                 ))}
                             </View>
                         ))}
+                        <Text
+                            style={{
+                                fontWeight: "bold",
+                                color: "#fff",
+                                width: "90%",
+                            }}
+                        >
+                            {userData.currentMonthYear}
+                        </Text>
                     </View>
                 )
             }
