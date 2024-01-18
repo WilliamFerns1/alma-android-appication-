@@ -248,11 +248,10 @@ export default function Stats({ route, navigation}) {
                     paddingHorizontal: 17,
                     flexDirection: "column",
                     alignItems: "center",
-                    gap: 10,
                     backgroundColor: "#720455",
                     borderRadius: 10,
                     width: "90%",
-                    marginBottom: toggleTimeFramePopup ? 0 : "auto",
+                    marginBottom: toggleTimeFramePopup ? 0 : 10,
                 }}
             >
                 <Text
@@ -1082,8 +1081,8 @@ export default function Stats({ route, navigation}) {
                             alignItems: "center",
                             justifyContent: "center",
                             flexWrap: "wrap",
-                            gap: 10,
-                            paddingVertical: 20,
+                            gap: 5,
+                            paddingVertical: 10,
                             backgroundColor: "#3C0753",
                             marginBottom: "auto",
                         }}
