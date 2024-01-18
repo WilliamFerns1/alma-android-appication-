@@ -1579,6 +1579,16 @@ export default function Stats({ route, navigation}) {
                                             ))}
                                         </View>
                                     ))}
+                                    <Text
+                                        style={{
+                                            color: "#fff",
+                                            fontWeight: "bold",
+                                            fontSize: 8,
+                                            width: "90%",
+                                        }}
+                                    >
+                                        {month.monthAndYear}
+                                    </Text>
                                 </View>
                             ))}
                         </View>
@@ -1916,6 +1926,16 @@ export default function Stats({ route, navigation}) {
                                             ))}
                                         </View>
                                     ))}
+                                    <Text
+                                        style={{
+                                            color: "#fff",
+                                            fontWeight: "bold",
+                                            fontSize: 8,
+                                            width: "90%",
+                                        }}
+                                    >
+                                        {month.monthAndYear}
+                                    </Text>
                                 </View>
                             ))}
                         </View>
@@ -2016,6 +2036,7 @@ export default function Stats({ route, navigation}) {
                                 position: "absolute",
                                 top: 50,
                                 right: 30,
+                                zIndex: 1000,
                             }}
                             onPress={() => {
                                 setToggleAllTimeCalendar(false)
@@ -2253,6 +2274,16 @@ export default function Stats({ route, navigation}) {
                                             ))}
                                         </View>
                                     ))}
+                                    <Text
+                                        style={{
+                                            color: "#fff",
+                                            fontWeight: "bold",
+                                            fontSize: 8,
+                                            width: "90%",
+                                        }}
+                                    >
+                                        {month.monthAndYear}
+                                    </Text>
                                 </View>
                             ))}
                         </View>
