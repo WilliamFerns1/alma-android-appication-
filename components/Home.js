@@ -39,6 +39,15 @@ export default function Home({ route, navigation}) {
     const documentID = user?.id;
 
     async function getUserData(db, collectionName, documentID) {
+        console.log("Getting user data")
+        console.log("Getting user data")
+        console.log("Getting user data")
+        console.log("Getting user data")
+        console.log("Getting user data")
+        console.log("Getting user data")
+        console.log("Getting user data")
+        console.log("Getting user data")
+        console.log("Getting user data")
         try {
         // Check if the document ID is null or undefined
         if (!documentID) {
@@ -48,14 +57,15 @@ export default function Home({ route, navigation}) {
         setLoadingCalendar(true)
         const collectionRef = collection(db, collectionName);
         const documentRef = doc(collectionRef, documentID);
-
-        // Check if the document exists
-        const documentSnapshot = await getDoc(documentRef);
-
-        if (documentSnapshot.exists()) {
-          console.log(`Document with ID ${documentID} already exists.`);
-        setUserData(documentSnapshot.data());
-        setLoadingCalendar(false)
+        while (true) {
+            // Check if the document exists
+            const documentSnapshot = await getDoc(documentRef);
+            if (documentSnapshot.exists()) {
+                console.log(`Document with ID ${documentID} already exists.`);
+                setUserData(documentSnapshot.data());
+                setLoadingCalendar(false)
+                break
+            }
         }
       } catch (error) {
         console.error("Error getting document:", error);
@@ -66,10 +76,6 @@ export default function Home({ route, navigation}) {
     useEffect(() => {
         getUserData(db, collectionName, documentID);
     }, [createdUserDocument, reload ])
-
-    useEffect(() => {
-        getUserData(db, collectionName, documentID);
-    }, [reload])
 
     useEffect(() => {
         console.log("User Data: ");
