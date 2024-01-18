@@ -8,8 +8,7 @@ import {
     ActivityIndicator,
     TouchableOpacity,
     View,
-    Image,
-} from "react-native";
+    Image, } from "react-native";
 import BottomNavBar from "./BottomNavBar"
 import PieChart from 'react-native-pie-chart';
 
@@ -925,9 +924,275 @@ export default function Stats({ route, navigation}) {
                 )
             }
             {
-                sixMonthCalendarAndChart && (
-                    <View>
-                        <Text>Six Months</Text>
+                (allMonthsData.length > 1 && sixMonthCalendarAndChart && userData?.currentMonthCalendar) && !toggleTimeFramePopup && (
+                    <View
+                        style={{
+                            width: "100%",
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            height: "100%",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            backgroundColor: "black",
+                            opacity: 0.9,
+                            backdropFilter: "blur(10px)",
+                        }}
+                    >
+                        <TouchableOpacity
+                            style={{
+                                position: "absolute",
+                                top: 50,
+                                right: 30,
+                            }}
+                            onPress={() => {
+                                return null;
+                            }}
+                        >
+                            <Image
+                                source={require("../assets/CloseIcon.png")}
+                            />
+                        </TouchableOpacity>
+                        <View
+                            style={{
+                                width: "100%",
+                                display: 'flex',
+                                flexDirection: "row",
+                                flexWrap: "wrap",
+                                gap: 10,
+                                paddingVertical: 20,
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            {allMonthsData.slice(0, 6).map((month, monthIndex) => (
+                                console.log(allMonthsData.slice(0, 3)),
+                                <View
+                                    key={monthIndex}
+                                    style={{
+                                        width: "35%",
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        flexWrap: "wrap",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        gap: 5,
+                                    }}
+                                >
+                                    <View
+                                        style={{
+                                            width: "90%",
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            justifyContent: "space-between",
+                                            alignItems: "center",
+                                            alignSelf: "stretch",
+                                        }}
+                                    >
+                                        <View
+                                            style={{
+                                                display: "flex",
+                                                width: "13%",
+                                                paddingHorizontal: 3,
+                                                paddingVertical: 3,
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+
+                                            <Text
+                                                style={{
+                                                    color:"#fff",
+                                                    fontWeight: "bold",
+                                                    fontSize: 8,
+
+                                                }}
+                                            >
+                                                S
+
+                                            </Text>
+                                        </View>
+                                        <View
+                                            style={{
+                                                display: "flex",
+                                                width: "13%",
+                                                paddingHorizontal: 3,
+                                                paddingVertical: 3,
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+
+                                            <Text
+                                                style={{
+                                                    color:"#fff",
+                                                    fontWeight: "bold",
+                                                    fontSize: 8,
+                                                }}
+                                            >
+                                                M
+                                            </Text>
+                                        </View>
+                                        <View
+                                            style={{
+                                                display: "flex",
+                                                width: "13%",
+                                                paddingHorizontal: 3,
+                                                paddingVertical: 3,
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+
+                                            <Text
+                                                style={{
+                                                    color:"#fff",
+                                                    fontWeight: "bold",
+                                                    fontSize: 8,
+                                                }}
+                                            >
+                                                T
+                                            </Text>
+                                        </View>
+                                        <View
+                                            style={{
+                                                display: "flex",
+                                                width: "13%",
+                                                paddingHorizontal: 3,
+                                                paddingVertical: 3,
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+
+                                            <Text
+                                                style={{
+                                                    color:"#fff",
+                                                    fontWeight: "bold",
+                                                    fontSize: 8,
+
+                                                }}
+                                            >
+                                                W
+                                            </Text>
+                                        </View>
+                                        <View
+                                            style={{
+                                                display: "flex",
+                                                width: "13%",
+                                                paddingHorizontal: 3,
+                                                paddingVertical: 3,
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+
+                                            <Text
+                                                style={{
+                                                    color:"#fff",
+                                                    fontWeight: "bold",
+                                                    fontSize: 8,
+                                                }}
+                                            >
+                                                T
+                                            </Text>
+                                        </View>
+                                        <View
+                                            style={{
+                                                display: "flex",
+                                                width: "13%",
+                                                paddingHorizontal: 3,
+                                                paddingVertical: 3,
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+
+                                            <Text
+                                                style={{
+                                                    color:"#fff",
+                                                    fontWeight: "bold",
+                                                    fontSize: 8,
+                                                }}
+                                            >
+                                                F
+                                            </Text>
+                                        </View>
+                                        <View
+                                            style={{
+                                                display: "flex",
+                                                width: "13%",
+                                                paddingHorizontal: 3,
+                                                paddingVertical: 3,
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+
+                                            <Text
+                                                style={{
+                                                    color:"#fff",
+                                                    fontWeight: "bold",
+                                                    fontSize: 8,
+                                                }}
+                                            >
+                                               S
+                                            </Text>
+                                        </View>
+                                    </View>
+                                    {month.monthData.map((weekArray, index) => (
+                                        <View
+                                            key={index}
+                                            style={{
+                                                width: "90%",
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                justifyContent: index === month.monthData.length - 1 ? "flex-start" : "space-between",
+                                                alignItems: "center",
+                                                alignSelf: "stretch",
+                                            }}
+                                        >
+                                            {weekArray.week.map((day, dayIndex) => (
+                                                <TouchableOpacity
+                                                    key={dayIndex}
+                                                    style={{
+                                                        display: "flex",
+                                                        paddingHorizontal: 3,
+                                                        paddingVertical: 3,
+                                                        borderRadius: 1,
+                                                        width: "13%",
+                                                        justifyContent: "center",
+                                                        alignItems: "center",
+                                                        backgroundColor: day.value === 0 ? "#464646" : day.value === 1 ? "green" : day.value === 2 ? "yellow" : "red",
+                                                        marginRight: index === month.monthData.length - 1 ? "1.28%" : 0,
+                                                    }}
+
+                                                    onPress={() => {
+                                                        navigation.navigate('ChangeMood', {
+                                                            day: day.day,
+                                                            monthAndYear: month.monthAndYear, // Assuming the month object has the monthAndYear property
+                                                            setReloadPage: setReloadPage,
+                                                        });
+                                                    }}
+                                                >
+                                                    <Text
+                                                        style={{
+                                                            textAlign: "center",
+                                                            color: day.value === 2 ? "black" : "#fff",
+                                                            fontWeight: 'bold',
+                                                            fontSize: 6,
+                                                        }}
+                                                    >
+                                                        {day.day}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            ))}
+                                        </View>
+                                    ))}
+                                </View>
+                            ))}
+                        </View>
                     </View>
                 )
             }
