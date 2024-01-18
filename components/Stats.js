@@ -147,23 +147,6 @@ export default function Stats({ route, navigation}) {
                 monthData: userData.currentMonthCalendar,
                 monthAndYear: userData.currentMonthYear,
             });
-            //Remove this two unshifts below
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
-            resultArray.unshift({
-                monthData: userData.currentMonthCalendar,
-                monthAndYear: userData.currentMonthYear,
-            });
             // Output the resulting array
             console.log(resultArray);
             setAllMonthsData(resultArray);
@@ -940,7 +923,7 @@ export default function Stats({ route, navigation}) {
                 )
             }
             {
-                (allMonthsData.length > 1 && toggleSixMonthCalendar && sixMonthCalendarAndChart && userData?.currentMonthCalendar) && !toggleTimeFramePopup ? (
+                (allMonthsData.length >= 1 && toggleSixMonthCalendar && sixMonthCalendarAndChart && userData?.currentMonthCalendar) && !toggleTimeFramePopup ? (
                     <View
                         style={{
                             width: "100%",
