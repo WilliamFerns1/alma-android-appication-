@@ -146,6 +146,71 @@ export default function Stats({ route, navigation}) {
                 monthData: userData.currentMonthCalendar,
                 monthAndYear: userData.currentMonthYear,
             });
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
+            // Make all month data 3 months just for dummy testing
+            resultArray.unshift({
+                monthData: userData.currentMonthCalendar,
+                monthAndYear: userData.currentMonthYear,
+            });
             // Output the resulting array
             console.log(resultArray);
             setAllMonthsData(resultArray);
@@ -1241,17 +1306,18 @@ export default function Stats({ route, navigation}) {
                                         ))}
                                     </View>
                                 ))}
+                                <Text
+                                    style={{
+                                        color: "#fff",
+                                        fontWeight: "bold",
+                                        fontSize: 8,
+                                        width: "90%",
+                                    }}
+                                >
+                                    {month.monthAndYear}
+                                </Text>
                             </View>
                         ))}
-                        <Text
-                            style={{
-                                fontWeight: "bold",
-                                color: "#fff",
-                                width: "90%",
-                            }}
-                        >
-                            {userData.currentMonthYear}
-                        </Text>
                     </View>
                 )
             }
