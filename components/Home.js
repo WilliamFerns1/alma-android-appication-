@@ -121,7 +121,7 @@ export default function Home({ route, navigation}) {
                             width: "100%",
                         }}
                     >
-                        {`${clickedDayObject.day} ${userData && userData.currentMonthYear}`}
+                        {`${clickedDayObject.day} ${userData && userData.currentMonthYear.split(' ').join(', ')}`}
                     </Text>
                     <View
                         style={{
@@ -197,6 +197,7 @@ export default function Home({ route, navigation}) {
         )
     }
 
+    const [currentlyClickedDay, setCurrentlyClickedDay] = useState(null)
     function EmotionCalender() {
         return (
             <View
@@ -254,6 +255,8 @@ export default function Home({ route, navigation}) {
                                                         paddingHorizontal: 10,
                                                         paddingVertical: 10,
                                                         borderRadius: 4,
+                                                        borderWidth: 0.5,
+                                                        borderColor: currentlyClickedDay === day.day ? "#9949FF" : "transparent",
                                                         width: "13%",
                                                         justifyContent: "center",
                                                         alignItems: "center",
@@ -261,6 +264,7 @@ export default function Home({ route, navigation}) {
                                                         marginRight: index === userData.currentMonthCalendar.length - 1 ? "1.28%" : 0
                                                     }}
                                                     onPress={() => {
+                                                        setCurrentlyClickedDay(day.day)
                                                         onClickCalendarDay(day);
                                                     }}
                                                 >
@@ -492,18 +496,22 @@ export default function Home({ route, navigation}) {
                         {userData && userData.currentMonthYear}
                     </Text>
                 </View>
-                {
-                    toggleChangeMoodUI && (
-                        <ChangeMoodUI />
-                    )
-                }
+                {/* { */}
+                {/*     toggleChangeMoodUI && ( */}
+                {/*         <ChangeMoodUI /> */}
+                {/*     ) */}
+                {/* } */}
             </View>
             <SafeAreaView
                 style={{
                     width: "100%"
                 }}
             >
-                <BottomNavBar setReloadPage={getReloadPage}/>
+                <BottomNavBar
+                    setReloadPage={getReloadPage}
+                    dayToChange={clickedDayObject}
+                    changeMessage={`Changing ${clickedDayObject && clickedDayObject.day} ${userData && userData.currentMonthYear.split(" ").join(", ")}`}
+                />
             </SafeAreaView>
         </SafeAreaView>
     )

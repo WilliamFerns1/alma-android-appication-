@@ -195,7 +195,6 @@ useEffect(() => {
                     paddingHorizontal: 17,
                     flexDirection: "column",
                     alignItems: "center",
-                    backgroundColor: "#720455",
                     borderRadius: 10,
                     width: "90%",
                     marginBottom: toggleTimeFramePopup ? 0 : 10,

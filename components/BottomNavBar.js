@@ -24,13 +24,15 @@ const db = getFirestore(app);
 import { useNavigation } from '@react-navigation/native';
 
 export default function BottomNavBar(props) {
+                    // dayToChange={clickedDayObject}
+                    // changeMessage={`Changing ${clickedDayObject && clickedDayObject.day} ${userData && userData.currentMonthYear.split(' ').join(', ')}`}
+    const { dayToChange, changeMessage } = props
     const [userData, setUserData] = useState(null)
     const [updatingCurrentDayEmotion, setUpdatingCurrentDayEmotion] = useState(false)
     const { signOut } = useClerk();
     const navigation = useNavigation();
     const {user} = useUser()
     const {loading, session} = useSession()
-
     const { setReloadPage } = props || null;
 
     // Usage example:
@@ -90,9 +92,14 @@ export default function BottomNavBar(props) {
         let updatedCurrentsMonthCalendarData;
         const oldMonthCalendarData = documentSnapshot.data()['currentMonthCalendar']
         //Get the current data in a number (for example if the date is 17 january, it will be 17)
-        const currentDate = new Date().getDate();
-        console.log("Current Date: ", currentDate)
-
+        let currentDate;
+        if (dayToChange) {
+            currentDate = dayToChange.day;
+            }
+        else {
+            currentDate = new Date().getDate();
+            console.log("Current Date: ", currentDate)
+        }
         //Here is the format: [{week: [{value: 0, day: 1}, {value: 0, day: 2}...goes so on for 7 days, and the repeat for the next and next week]}]
         //Update the current day value
         //lOOP THROUGH THE CURRENT MONTH CALENDAR DATA AND UPDATE THE VALUE OF THE CURRENT DATE
@@ -127,7 +134,7 @@ export default function BottomNavBar(props) {
             style={{
                 width: '100%',
                 display: "flex",
-                backgroundColor: "#9949FF",
+                backgroundColor: "#030637",
                 justifyContent: "center",
                 paddingVertical: 10,
                 paddingHorizontal: 22,
@@ -150,7 +157,7 @@ export default function BottomNavBar(props) {
                             fontSize: 20,
                         }}
                     >
-                        Updating Today's Mood...
+                        {dayToChange ? changeMessage : "Updating Today's Mood..."}
                     </Text>
                     <ActivityIndicator size="large" color="#00ff00" />
                 </View>
@@ -227,6 +234,8 @@ export default function BottomNavBar(props) {
                                 source={require('../assets/stats.png')}
                                 style={{
                                     // Add styles if needed
+                                    width: 35,
+                                    height: 35,
                                 }}
                             />
                         </TouchableOpacity>
@@ -234,9 +243,9 @@ export default function BottomNavBar(props) {
                         <TouchableOpacity
                             style={{
                                 display: "flex",
-                                width: 86,
-                                paddingVertical: 10,
-                                paddingHorizontal: 10,
+                                width: 66,
+                                paddingVertical: 7,
+                                paddingHorizontal: 7,
                                 flexDirection: "column",
                                 justifyContent: "center",
                                 alignItems: "center",

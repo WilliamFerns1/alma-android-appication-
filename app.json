@@ -15,16 +15,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.willferns2000.alma"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/small-logo.png",
         "backgroundColor": "#030637"
-      }
+      },
+      "package": "com.willferns2000.alma"
     },
     "web": {
       "favicon": "./assets/logo-without-text.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0666f15f-e663-423d-b47f-ceb02608cd80"
+      }
     }
   }
 }
